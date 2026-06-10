@@ -1,0 +1,6 @@
+{
+  "name": "Curcumin Solutions",
+  "description": "Premium hero page for Curcumin Solutions, highlighting India's first synthetic curcumin manufacturer.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
