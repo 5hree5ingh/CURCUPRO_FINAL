@@ -1,7 +1,8 @@
+"use client";
+
 import React from "react";
-import { ChevronRight, Shield } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
-import backgroundImage from "../image.png";
 
 // Pointed-topped hexagon logo with Curcumin synthesis chemical bonds
 const HexagonLogo: React.FC = () => {
@@ -77,7 +78,7 @@ const ShieldIcon: React.FC<ShieldIconProps> = ({ percentage }) => {
   );
 };
 
-export default function App() {
+export default function Page() {
   const purityMetrics = [
     { value: "95%", label: "95% Purity" },
     { value: "98%", label: "98% Purity" },
@@ -93,7 +94,7 @@ export default function App() {
       {/* Background image */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <img
-          src={backgroundImage}
+          src="/image.png"
           alt="Curcupure product background"
           className="w-full h-full object-contain object-right"
         />
