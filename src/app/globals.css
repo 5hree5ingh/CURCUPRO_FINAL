@@ -5,3 +5,35 @@
   --font-serif: "Playfair Display", Georgia, serif;
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 }
+
+html {
+  /* Lenis handles smooth scrolling */
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+*, *::before, *::after {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* GPU acceleration for animated elements */
+section {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}

@@ -1,0 +1,199 @@
+"use client";
+
+import React, { useRef } from "react";
+import { motion, useInView } from "motion/react";
+
+// Comparison data
+const comparisonData = [
+  {
+    attribute: "Purity",
+    natural: "~75–85%",
+    synthetic: "99.5%+",
+    highlight: true,
+  },
+  {
+    attribute: "Batch Consistency",
+    natural: "Variable",
+    synthetic: "Identical",
+    highlight: false,
+  },
+  {
+    attribute: "Heavy Metals",
+    natural: "Risk of contamination",
+    synthetic: "Non-detectable",
+    highlight: false,
+  },
+  {
+    attribute: "Supply Stability",
+    natural: "Seasonal / Climate-dependent",
+    synthetic: "Year-round",
+    highlight: true,
+  },
+  {
+    attribute: "Scalability",
+    natural: "Limited by harvest",
+    synthetic: "Unlimited",
+    highlight: false,
+  },
+  {
+    attribute: "Pesticide Residues",
+    natural: "Possible",
+    synthetic: "Zero",
+    highlight: false,
+  },
+];
+
+const statHighlights = [
+  {
+    value: "99.5%",
+    label: "Single-Molecule Purity",
+    description: "Pharmaceutical-grade precision",
+  },
+  {
+    value: "0%",
+    label: "Batch Variation",
+    description: "Every batch, identical",
+  },
+  {
+    value: "365",
+    label: "Days Supply Guarantee",
+    description: "No seasonal dependency",
+  },
+];
+
+export default function WhySyntheticSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
+
+  return (
+    <section
+      id="about"
+      ref={sectionRef}
+      className="relative w-full h-screen bg-[#f4ebd9] text-[#1a1105] font-sans overflow-hidden pt-[70px]"
+    >
+      {/* Subtle ambient glows */}
+      <div className="absolute top-[10%] right-[15%] w-[600px] h-[600px] bg-[#b0741a]/4 rounded-full blur-[160px] pointer-events-none z-0" />
+      <div className="absolute bottom-[5%] left-[10%] w-[400px] h-[400px] bg-[#d08f30]/3 rounded-full blur-[140px] pointer-events-none z-0" />
+
+      {/* Content container */}
+      <div className="relative z-10 w-full h-full max-w-[1200px] mx-auto px-8 md:px-16 lg:px-24 py-6 flex flex-col justify-center">
+
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.97, filter: "blur(4px)" }}
+          animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-6"
+        >
+          {/* Eyebrow */}
+          <p className="text-[#b0741a] text-sm font-semibold tracking-[0.25em] uppercase mb-3">
+            The Science Behind the Switch
+          </p>
+
+          {/* Title */}
+          <h2 className="font-serif text-[46px] sm:text-[56px] md:text-[66px] font-medium leading-[1.08] tracking-tight">
+            <span className="text-[#1a1105]">Why </span>
+            <span className="bg-gradient-to-r from-[#b0741a] via-[#d08f30] to-[#8c540c] bg-clip-text text-transparent">
+              Synthetic?
+            </span>
+          </h2>
+        </motion.div>
+
+        {/* Stats Row */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.97, filter: "blur(4px)" }}
+          animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+          transition={{ duration: 1.1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6"
+        >
+          {statHighlights.map((stat, i) => (
+            <div
+              key={i}
+              className="relative border border-[#b0741a]/12 bg-white/35 backdrop-blur-[8px] rounded-2xl p-5 text-center group hover:border-[#b0741a]/30 transition-all duration-500 hover:shadow-[0_12px_40px_rgba(176,116,26,0.06)]"
+            >
+              {/* Decorative top line */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-[2px] bg-gradient-to-r from-transparent via-[#b0741a]/40 to-transparent rounded-full" />
+
+              <span className="block font-serif text-[42px] md:text-[52px] font-medium bg-gradient-to-r from-[#b0741a] via-[#d08f30] to-[#8c540c] bg-clip-text text-transparent leading-tight mb-2">
+                {stat.value}
+              </span>
+              <span className="block text-[#1a1105] text-base font-semibold font-sans tracking-wide mb-1">
+                {stat.label}
+              </span>
+              <span className="block text-[#493c2c]/60 text-sm font-sans">
+                {stat.description}
+              </span>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Comparison Table */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98, filter: "blur(3px)" }}
+          animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+          transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full"
+        >
+          {/* Table Header */}
+          <div className="grid grid-cols-3 gap-0 mb-1">
+            <div className="py-2 px-8">
+              <span className="text-[#493c2c]/50 text-sm font-semibold font-sans tracking-widest uppercase">
+                Parameter
+              </span>
+            </div>
+            <div className="py-2 px-8 text-center">
+              <span className="text-[#493c2c]/50 text-sm font-semibold font-sans tracking-widest uppercase">
+                Natural
+              </span>
+            </div>
+            <div className="py-2 px-8 text-center">
+              <span className="text-[#b0741a] text-sm font-semibold font-sans tracking-widest uppercase">
+                Synthetic
+              </span>
+            </div>
+          </div>
+
+          {/* Table Rows */}
+          {comparisonData.map((row, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: 0 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{
+                duration: 0.7,
+                delay: 0.35 + i * 0.07,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className={`grid grid-cols-3 gap-0 border-t border-[#b0741a]/8 ${i === comparisonData.length - 1
+                  ? "border-b border-[#b0741a]/8"
+                  : ""
+                }`}
+            >
+              {/* Attribute */}
+              <div className="py-2.5 px-8 flex items-center">
+                <span className="text-base md:text-lg font-medium font-sans">
+                  {row.attribute}
+                </span>
+              </div>
+
+              {/* Natural value */}
+              <div className="py-2.5 px-8 flex items-center justify-center">
+                <span className="text-[#493c2c]/60 text-base md:text-lg font-sans text-center">
+                  {row.natural}
+                </span>
+              </div>
+
+              {/* Synthetic value */}
+              <div className="py-2.5 px-8 flex items-center justify-center">
+                <span className="text-base md:text-lg font-sans text-center font-semibold text-[#b0741a]">
+                  {row.synthetic}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}

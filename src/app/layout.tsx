@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import SmoothScroll from "@/components/SmoothScroll";
 
 export const metadata: Metadata = {
   title: "Curcumin Solutions",
@@ -13,7 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full w-full">
-      <body className="h-full w-full">{children}</body>
+      <body className="h-full w-full">
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
+      </body>
     </html>
   );
 }

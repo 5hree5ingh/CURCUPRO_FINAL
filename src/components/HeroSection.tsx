@@ -142,7 +142,7 @@ export default function HeroSection() {
 
           <motion.p
             id="hero-subtitle-caps"
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-[#b0741a] text-xs sm:text-sm font-semibold tracking-widest uppercase mb-4 selection:bg-[#b0741a]/30"
@@ -152,7 +152,7 @@ export default function HeroSection() {
 
           <motion.h1
             id="hero-main-title"
-            initial={{ opacity: 0, y: 25 }}
+            initial={{ opacity: 0, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="font-serif text-[46px] sm:text-[58px] md:text-[72px] font-medium leading-[1.08] tracking-tight selection:bg-[#b0741a]/20 text-[#1a1105]"
@@ -163,7 +163,7 @@ export default function HeroSection() {
 
           <motion.p
             id="hero-main-description"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="text-[#493c2c]/90 text-base md:text-lg font-sans leading-relaxed mt-5 mb-9 max-w-[560px] selection:bg-[#ebdcb9]"
@@ -179,10 +179,10 @@ export default function HeroSection() {
               <motion.div
                 key={i}
                 id={`badge-card-${i}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="border border-[#e2d4b7] bg-white/40 backdrop-blur-[8px] hover:border-[#b0741a]/60 rounded-xl p-5 flex flex-col items-center justify-center text-center transition-all duration-500 group hover:shadow-[0_12px_30px_rgba(176,116,26,0.08)] hover:-translate-y-1 cursor-default"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1.4, delay: 0.5 + i * 0.18, ease: "easeOut" }}
+                className="border border-[#d8c9a8]/60 bg-[#ede4cf]/70 backdrop-blur-[6px] hover:border-[#b0741a]/50 rounded-xl p-5 flex flex-col items-center justify-center text-center transition-all duration-500 group hover:shadow-[0_12px_30px_rgba(176,116,26,0.08)] hover:-translate-y-1 cursor-default"
               >
                 <div className="transform group-hover:scale-105 transition-transform duration-300">
                   <ShieldIcon percentage={metric.value} />
@@ -196,7 +196,7 @@ export default function HeroSection() {
 
           <motion.div
             id="cta-action-container"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6 mt-2"
