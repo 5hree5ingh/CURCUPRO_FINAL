@@ -68,16 +68,8 @@ export default function ProductRangeSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16 md:mb-20"
+          className="mb-16 md:mb-20 text-center"
         >
-          {/* Eyebrow with decorative line */}
-          <div className="flex items-center gap-4 mb-6">
-            <div className="h-[1px] w-8 bg-[#b0741a]" />
-            <p className="text-[#b0741a] text-[10px] sm:text-xs font-bold tracking-[0.3em] uppercase">
-              Product Range
-            </p>
-          </div>
-
           {/* Main headline — single line */}
           <h2 className="font-serif text-[36px] sm:text-[50px] md:text-[62px] lg:text-[72px] font-medium leading-[1.06] tracking-tight">
             <span className="text-[#f4ebd9]">Three grades. </span>
@@ -85,16 +77,10 @@ export default function ProductRangeSection() {
               One standard.
             </span>
           </h2>
-
-          {/* Subtitle */}
-          <p className="text-[#f4ebd9]/35 text-sm sm:text-base font-sans mt-5 max-w-[520px] leading-relaxed">
-            Pharma, nutraceutical, and food-grade variants — all from the same{" "}
-            <span className="text-[#b0741a]/70 font-medium">cGMP-certified</span> facility.
-          </p>
         </motion.div>
 
         {/* Product Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {products.map((product, i) => (
             <motion.div
               key={i}
@@ -109,7 +95,7 @@ export default function ProductRangeSection() {
             >
               {/* Badge */}
               {product.badge && (
-                <div className="absolute -top-3 left-6 z-20">
+                <div className="absolute -top-3 left-8 z-20">
                   <span className="inline-block bg-gradient-to-r from-[#b0741a] to-[#d08f30] text-[#1a1105] text-[9px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full shadow-[0_4px_16px_rgba(176,116,26,0.3)]">
                     {product.badge}
                   </span>
@@ -117,7 +103,7 @@ export default function ProductRangeSection() {
               )}
 
               <div
-                className={`relative h-full border border-[#f4ebd9]/8 rounded-2xl p-6 sm:p-8 flex flex-col transition-all duration-700 cursor-default
+                className={`relative h-full border border-[#f4ebd9]/8 rounded-2xl p-8 lg:p-10 flex flex-col transition-all duration-700 cursor-default
                   bg-gradient-to-b from-[#f4ebd9]/[0.04] to-transparent
                   hover:border-[#b0741a]/25 hover:bg-[#f4ebd9]/[0.06]
                   hover:shadow-[0_20px_60px_rgba(176,116,26,0.08)]
@@ -132,14 +118,14 @@ export default function ProductRangeSection() {
                 />
 
                 {/* Tier label */}
-                <span className="text-[#f4ebd9]/25 text-[9px] font-semibold tracking-[0.25em] uppercase mb-6">
+                <span className="text-[#f4ebd9]/25 text-[9px] font-semibold tracking-[0.25em] uppercase mb-4">
                   {product.tier}
                 </span>
 
                 {/* Purity number — the hero of the card */}
-                <div className="mb-5">
+                <div className="mb-4">
                   <span
-                    className="font-serif text-[48px] sm:text-[56px] md:text-[52px] lg:text-[60px] font-medium leading-none tracking-tight"
+                    className="font-serif text-[42px] sm:text-[50px] lg:text-[56px] font-medium leading-none tracking-tight"
                     style={{
                       background: `linear-gradient(135deg, #f4ebd9, ${product.accent})`,
                       WebkitBackgroundClip: "text",
@@ -164,7 +150,7 @@ export default function ProductRangeSection() {
                 </p>
 
                 {/* Description */}
-                <p className="text-[#f4ebd9]/45 text-sm font-sans leading-relaxed mb-8 flex-1">
+                <p className="text-[#f4ebd9]/45 text-sm font-sans leading-relaxed mb-6 flex-1">
                   {product.description}
                 </p>
 
@@ -189,7 +175,7 @@ export default function ProductRangeSection() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 1, delay: 0.8 }}
-          className="mt-12 md:mt-16 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8"
+          className="mt-16 md:mt-24 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8"
         >
           <div className="h-[1px] w-12 bg-gradient-to-r from-[#b0741a]/60 to-transparent hidden sm:block" />
           <p className="text-[#f4ebd9]/25 text-xs sm:text-sm font-sans tracking-wide">

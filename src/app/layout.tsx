@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+import SplashCursor from "@/components/SplashCursor";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "Curcumin Solutions",
@@ -13,8 +18,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full w-full overflow-x-hidden">
+    <html lang="en" className={cn("h-full w-full overflow-x-hidden", "font-sans", geist.variable)}>
       <body className="h-full w-full overflow-x-hidden">
+        <SplashCursor
+          DENSITY_DISSIPATION={3.5}
+          VELOCITY_DISSIPATION={2}
+          PRESSURE={0.1}
+          CURL={3}
+          SPLAT_RADIUS={0.2}
+          SPLAT_FORCE={6000}
+          COLOR_UPDATE_SPEED={10}
+          SHADING
+          RAINBOW_MODE={false}
+          COLOR="#b0741a"
+        />
         <SmoothScroll>
           {children}
         </SmoothScroll>
@@ -22,3 +39,4 @@ export default function RootLayout({
     </html>
   );
 }
+
