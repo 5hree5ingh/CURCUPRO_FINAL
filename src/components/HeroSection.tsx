@@ -3,6 +3,7 @@
 import React from "react";
 import { ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
+import ShinyText from "./ShinyText";
 
 // Pointed-topped hexagon logo with Curcumin synthesis chemical bonds
 const HexagonLogo: React.FC = () => {
@@ -68,9 +69,19 @@ const ShieldIcon: React.FC<ShieldIconProps> = ({ percentage }) => {
           className="text-[#bf801d]"
         />
       </svg>
-      <span className={`absolute top-[42%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${isLongText ? 'text-[8px] md:text-[9.5px]' : 'text-[10px] md:text-xs'} font-bold tracking-tight text-[#9c6312] font-sans whitespace-nowrap`}>
-        {percentage}
-      </span>
+      <ShinyText
+        text={percentage}
+        speed={2.5}
+        delay={0}
+        color="#9c6312"
+        shineColor="#f0c060"
+        spread={100}
+        direction="left"
+        yoyo={false}
+        pauseOnHover={false}
+        disabled={false}
+        className={`absolute top-[42%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${isLongText ? 'text-[8px] md:text-[9.5px]' : 'text-[10px] md:text-xs'} font-bold tracking-tight font-sans whitespace-nowrap`}
+      />
     </div>
   );
 };

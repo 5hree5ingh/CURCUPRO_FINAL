@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "motion/react";
+import ShinyText from "./ShinyText";
 
 // Comparison data
 const comparisonData = [
@@ -114,8 +115,20 @@ export default function WhySyntheticSection() {
               {/* Decorative top line */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-[2px] bg-gradient-to-r from-transparent via-[#b0741a]/40 to-transparent rounded-full" />
 
-              <span className="block font-serif text-[32px] sm:text-[46px] md:text-[56px] font-medium bg-gradient-to-r from-[#b0741a] via-[#d08f30] to-[#8c540c] bg-clip-text text-transparent leading-tight mb-1 sm:mb-2">
-                {stat.value}
+              <span className="block font-serif text-[32px] sm:text-[46px] md:text-[56px] font-medium leading-tight mb-1 sm:mb-2">
+                <ShinyText
+                  text={stat.value}
+                  speed={2.5}
+                  delay={0}
+                  color="#b0741a"
+                  shineColor="#f0c060"
+                  spread={100}
+                  direction="left"
+                  yoyo={false}
+                  pauseOnHover={false}
+                  disabled={false}
+                  className="font-serif text-[32px] sm:text-[46px] md:text-[56px] font-medium leading-tight"
+                />
               </span>
               <span className="block text-[#1a1105] text-xs sm:text-base font-semibold font-sans tracking-wide mb-0.5 sm:mb-1">
                 {stat.label}
