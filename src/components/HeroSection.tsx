@@ -166,19 +166,21 @@ export default function HeroSection() {
           </a>
         </nav>
 
-        {/* Mobile-only CTA button */}
-        <button
-          id="header-cta-btn-mobile"
-          className="md:hidden px-2 py-1 bg-[#bf801d] hover:bg-[#a36b15] active:scale-98 text-white rounded-md font-sans font-semibold text-[9px] tracking-normal uppercase transition-all duration-300 shadow-[0_2px_4px_rgba(191,128,29,0.12)] cursor-pointer"
-        >
-          BULK QUOTE
-        </button>
+        <div id="header-actions-mobile" className="flex items-center space-x-3">
+          {/* Mobile-only CTA button */}
+          <button
+            id="header-cta-btn-mobile"
+            className="md:hidden px-2 py-1 bg-[#bf801d] hover:bg-[#a36b15] active:scale-98 text-white rounded-md font-sans font-semibold text-[9px] tracking-normal uppercase transition-all duration-300 shadow-[0_2px_4px_rgba(191,128,29,0.12)] cursor-pointer"
+          >
+            BULK QUOTE
+          </button>
 
-        <button className="flex flex-col items-center justify-center w-8 h-8 gap-[4px] cursor-pointer" aria-label="Open menu">
-          <span className="w-5 h-[2px] bg-[#1a1105] rounded-full" />
-          <span className="w-5 h-[2px] bg-[#1a1105] rounded-full" />
-          <span className="w-5 h-[2px] bg-[#1a1105] rounded-full" />
-        </button>
+          <button className="flex flex-col items-center justify-center w-8 h-8 gap-[4px] cursor-pointer" aria-label="Open menu">
+            <span className="w-5 h-[2px] bg-[#1a1105] rounded-full" />
+            <span className="w-5 h-[2px] bg-[#1a1105] rounded-full" />
+            <span className="w-5 h-[2px] bg-[#1a1105] rounded-full" />
+          </button>
+        </div>
       </header>
 
       {/* Main Hero Body */}
