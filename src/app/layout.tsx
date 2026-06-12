@@ -13,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full w-full">
-      <body className="h-full w-full">
+    <html lang="en" className="h-full w-full overflow-x-hidden">
+      <body className="h-full w-full overflow-x-hidden">
         <SmoothScroll>
           {children}
         </SmoothScroll>

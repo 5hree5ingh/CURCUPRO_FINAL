@@ -192,7 +192,7 @@ export default function ProductSection() {
     <section
       id="products"
       ref={sectionRef}
-      className="relative w-full h-screen text-[#1a1105] font-sans overflow-hidden flex items-center px-8 md:px-16 lg:px-24"
+      className="relative w-full min-h-screen md:h-screen text-[#1a1105] font-sans overflow-hidden flex flex-col md:flex-row items-start md:items-center px-5 sm:px-8 md:px-16 lg:px-24 pt-24 md:pt-0 pb-8 md:pb-0"
     >
       {/* Background image */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
@@ -201,6 +201,8 @@ export default function ProductSection() {
           alt="Products Background"
           className="w-full h-full object-cover object-center"
         />
+        {/* Mobile readability overlay */}
+        <div className="absolute inset-0 bg-[#f4ebd9]/60 md:bg-transparent" />
       </div>
 
       {/* Specifications content (left-aligned, vertically centered) */}
@@ -213,7 +215,7 @@ export default function ProductSection() {
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-xl mb-5"
         >
-          <h2 className="font-serif text-[36px] sm:text-[44px] md:text-[50px] font-medium leading-[1.08] tracking-tight">
+          <h2 className="font-serif text-[28px] sm:text-[36px] md:text-[44px] lg:text-[50px] font-medium leading-[1.08] tracking-tight">
             <span className="text-[#1a1105] block">Synthetic Curcumin</span>
             <span className="bg-gradient-to-r from-[#b0741a] via-[#d08f30] to-[#8c540c] bg-clip-text text-transparent inline-block">Specifications</span>
           </h2>
@@ -223,7 +225,7 @@ export default function ProductSection() {
         </motion.div>
 
         {/* Specifications Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 md:gap-x-4 gap-y-0 items-start max-w-[650px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 md:gap-x-4 gap-y-0 items-start max-w-[650px] w-full">
           
           {/* Left Column */}
           <div className="flex flex-col">
@@ -235,7 +237,7 @@ export default function ProductSection() {
                 transition={{ duration: 0.9, delay: 0.1 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 className={`flex items-start gap-5 py-2.5 ${spec.hasDivider ? "border-b border-[#b0741a]/15" : ""}`}
               >
-                <div className="flex items-center justify-center w-[52px] h-[52px] rounded-full border border-[#b0741a]/30 text-[#b0741a] flex-shrink-0 mt-1">
+                <div className="flex items-center justify-center w-10 h-10 sm:w-[52px] sm:h-[52px] rounded-full border border-[#b0741a]/30 text-[#b0741a] flex-shrink-0 mt-1">
                   {spec.icon}
                 </div>
                 <div className="flex flex-col justify-center">
@@ -260,7 +262,7 @@ export default function ProductSection() {
                 transition={{ duration: 0.9, delay: 0.2 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 className={`flex items-start gap-5 py-2.5 ${spec.hasDivider ? "border-b border-[#b0741a]/15" : ""}`}
               >
-                <div className="flex items-center justify-center w-[52px] h-[52px] rounded-full border border-[#b0741a]/30 text-[#b0741a] flex-shrink-0 mt-1">
+                <div className="flex items-center justify-center w-10 h-10 sm:w-[52px] sm:h-[52px] rounded-full border border-[#b0741a]/30 text-[#b0741a] flex-shrink-0 mt-1">
                   {spec.icon}
                 </div>
                 <div className="flex flex-col justify-center">
@@ -278,19 +280,19 @@ export default function ProductSection() {
         </div>
       </div>
 
-      {/* Bottom: Badges & Button — right-aligned below the molecules */}
-      <div className="absolute bottom-6 left-[42%] right-0 z-10 flex flex-col items-center pr-8 md:pr-16 lg:pr-24">
+      {/* Bottom: Badges & Button */}
+      <div className="relative md:absolute md:bottom-6 md:left-[42%] md:right-0 w-full md:w-auto z-10 flex flex-col items-center mt-8 md:mt-0 pr-0 md:pr-16 lg:pr-24">
         {/* Badges Row */}
-        <div className="flex flex-wrap justify-center gap-3 w-full">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 w-full">
           {badges.map((badge, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, scale: 0.96, filter: "blur(3px)" }}
               animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
               transition={{ duration: 0.9, delay: 0.3 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="border border-[#b0741a]/15 bg-white/50 backdrop-blur-[8px] rounded-xl py-2.5 px-4 flex items-center gap-3 hover:border-[#b0741a]/40 transition duration-300"
+              className="border border-[#b0741a]/15 bg-white/50 backdrop-blur-[8px] rounded-xl py-2 sm:py-2.5 px-3 sm:px-4 flex items-center gap-2 sm:gap-3 hover:border-[#b0741a]/40 transition duration-300"
             >
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#b0741a]/8 text-[#b0741a] flex-shrink-0">
+              <div className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#b0741a]/8 text-[#b0741a] flex-shrink-0">
                 {badge.icon}
               </div>
               <div className="flex flex-col leading-tight">
@@ -312,7 +314,7 @@ export default function ProductSection() {
           transition={{ duration: 0.6, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mt-4 flex justify-center w-full"
         >
-          <button className="px-16 py-3.5 bg-gradient-to-r from-[#b0741a] to-[#c58c38] hover:from-[#c2842b] hover:to-[#d09945] text-white rounded-lg font-sans font-semibold text-xs tracking-widest uppercase transition-all duration-300 active:scale-[0.98] flex items-center justify-center space-x-2 shadow-[0_4px_20px_rgba(176,116,26,0.15)] hover:shadow-[0_6px_24px_rgba(176,116,26,0.25)] cursor-pointer w-full max-w-[500px]">
+          <button className="px-10 sm:px-16 py-3 sm:py-3.5 bg-gradient-to-r from-[#b0741a] to-[#c58c38] hover:from-[#c2842b] hover:to-[#d09945] text-white rounded-lg font-sans font-semibold text-[10px] sm:text-xs tracking-widest uppercase transition-all duration-300 active:scale-[0.98] flex items-center justify-center space-x-2 shadow-[0_4px_20px_rgba(176,116,26,0.15)] hover:shadow-[0_6px_24px_rgba(176,116,26,0.25)] cursor-pointer w-full max-w-[500px]">
             <span>REQUEST TDS / COA</span>
             <svg
               className="w-4 h-4 ml-1"
