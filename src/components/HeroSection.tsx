@@ -156,6 +156,10 @@ export default function HeroSection() {
             <span className="text-[#b0741a] font-semibold">Home</span>
             <span className="w-8 h-[2px] bg-[#b0741a] mt-1.5 rounded-full" />
           </div>
+          <a href="#products" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
+            Products
+            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#b0741a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
+          </a>
           <a href="#about" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
             About Us
             <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#b0741a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
@@ -166,11 +170,11 @@ export default function HeroSection() {
           </a>
         </nav>
 
-        <div id="header-actions-mobile" className="flex items-center space-x-3">
+        <div id="header-actions-mobile" className="flex items-center space-x-3 md:hidden">
           {/* Mobile-only CTA button */}
           <button
             id="header-cta-btn-mobile"
-            className="md:hidden px-2 py-1 bg-[#bf801d] hover:bg-[#a36b15] active:scale-98 text-white rounded-md font-sans font-semibold text-[9px] tracking-normal uppercase transition-all duration-300 shadow-[0_2px_4px_rgba(191,128,29,0.12)] cursor-pointer"
+            className="px-2 py-1 bg-[#bf801d] hover:bg-[#a36b15] active:scale-98 text-white rounded-md font-sans font-semibold text-[9px] tracking-normal uppercase transition-all duration-300 shadow-[0_2px_4px_rgba(191,128,29,0.12)] cursor-pointer"
           >
             BULK QUOTE
           </button>
