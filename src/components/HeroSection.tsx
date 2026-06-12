@@ -83,7 +83,7 @@ export default function HeroSection() {
   return (
     <section
       id="hero-root-container"
-      className="min-h-screen md:h-screen w-full max-w-full bg-[#f4ebd9] text-[#1a1105] font-sans flex flex-col justify-start relative select-none overflow-x-hidden"
+      className="h-dvh w-full max-w-full bg-[#f4ebd9] text-[#1a1105] font-sans flex flex-col justify-start relative select-none overflow-hidden"
     >
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <picture>
@@ -173,9 +173,9 @@ export default function HeroSection() {
         {/* Mobile-only CTA button */}
         <button
           id="header-cta-btn-mobile"
-          className="md:hidden px-2.5 py-1.5 bg-[#bf801d] hover:bg-[#a36b15] active:scale-98 text-white rounded-md font-sans font-semibold text-[9px] tracking-wider uppercase transition-all duration-300 shadow-[0_2px_6px_rgba(191,128,29,0.15)] cursor-pointer"
+          className="md:hidden px-2 py-1 bg-[#bf801d] hover:bg-[#a36b15] active:scale-98 text-white rounded-md font-sans font-semibold text-[9px] tracking-normal uppercase transition-all duration-300 shadow-[0_2px_4px_rgba(191,128,29,0.12)] cursor-pointer"
         >
-          REQUEST BULK QUOTE
+          BULK QUOTE
         </button>
 
         <button className="flex flex-col items-center justify-center w-8 h-8 gap-[4px] cursor-pointer" aria-label="Open menu">
