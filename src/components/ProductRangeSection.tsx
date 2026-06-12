@@ -170,21 +170,7 @@ export default function ProductRangeSection() {
           ))}
         </div>
 
-        {/* Bottom note */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="mt-16 md:mt-24 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8"
-        >
-          <div className="h-[1px] w-12 bg-gradient-to-r from-[#b0741a]/60 to-transparent hidden sm:block" />
-          <p className="text-[#f4ebd9]/25 text-xs sm:text-sm font-sans tracking-wide">
-            All grades manufactured under{" "}
-            <span className="text-[#b0741a]/60">ISO 9001:2015</span> &{" "}
-            <span className="text-[#b0741a]/60">cGMP</span> certification.
-            Custom purity available on request.
-          </p>
-        </motion.div>
+
       </div>
     </section>
   );
