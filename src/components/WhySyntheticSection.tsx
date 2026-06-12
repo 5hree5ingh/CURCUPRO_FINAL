@@ -110,7 +110,8 @@ export default function WhySyntheticSection() {
           {statHighlights.map((stat, i) => (
             <div
               key={i}
-              className="relative border border-[#b0741a]/12 bg-white/35 backdrop-blur-[8px] rounded-xl sm:rounded-2xl p-5 sm:p-7 text-center group hover:border-[#b0741a]/30 transition-all duration-500 hover:shadow-[0_12px_40px_rgba(176,116,26,0.06)]"
+              className="badge-shine relative border border-[#b0741a]/12 bg-white/35 backdrop-blur-[8px] rounded-xl sm:rounded-2xl p-5 sm:p-7 text-center group hover:border-[#b0741a]/30 transition-all duration-500 hover:shadow-[0_12px_40px_rgba(176,116,26,0.06)]"
+              style={{ ['--badge-delay' as string]: `${i * 0.9}s`, animationDelay: `${i * 0.9}s` } as React.CSSProperties}
             >
               {/* Decorative top line */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-[2px] bg-gradient-to-r from-transparent via-[#b0741a]/40 to-transparent rounded-full" />

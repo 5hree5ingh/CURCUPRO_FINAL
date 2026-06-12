@@ -251,7 +251,8 @@ export default function HeroSection() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1.4, delay: 0.5 + i * 0.18, ease: "easeOut" }}
-                className="border border-[#d8c9a8]/60 bg-[#ede4cf]/70 backdrop-blur-[6px] hover:border-[#b0741a]/50 rounded-xl p-3 flex flex-col items-center justify-center text-center transition-all duration-500 group hover:shadow-[0_12px_30px_rgba(176,116,26,0.08)] hover:-translate-y-1 cursor-default"
+                className="badge-shine border border-[#d8c9a8]/60 bg-[#ede4cf]/70 backdrop-blur-[6px] hover:border-[#b0741a]/50 rounded-xl p-3 flex flex-col items-center justify-center text-center transition-all duration-500 group hover:shadow-[0_12px_30px_rgba(176,116,26,0.08)] hover:-translate-y-1 cursor-default"
+                style={{ '--badge-delay': `${i * 0.7}s` } as React.CSSProperties}
               >
                 <div className="transform group-hover:scale-105 transition-transform duration-300">
                   <ShieldIcon percentage={metric.value} />
@@ -292,7 +293,7 @@ export default function HeroSection() {
         {/* Mobile purity badges (single row glassmorphic card overlay) */}
         <div
           id="purity-badges-row-mobile"
-          className="flex md:hidden w-full max-w-full items-stretch justify-between border border-[#e9dec6]/70 bg-[#ede4cf]/50 backdrop-blur-[12px] rounded-[24px] py-4 px-2 mb-6 mt-auto shadow-[0_4px_20px_rgba(0,0,0,0.03)] animate-[fadeIn_1s_ease-out_0.5s_both]"
+          className="badge-shine flex md:hidden w-full max-w-full items-stretch justify-between border border-[#e9dec6]/70 bg-[#ede4cf]/50 backdrop-blur-[12px] rounded-[24px] py-4 px-2 mb-6 mt-auto shadow-[0_4px_20px_rgba(0,0,0,0.03)] animate-[fadeIn_1s_ease-out_0.5s_both]"
         >
           {purityMetrics.map((metric, i) => (
             <div
