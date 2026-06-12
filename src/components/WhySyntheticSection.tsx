@@ -69,7 +69,7 @@ export default function WhySyntheticSection() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative w-full min-h-screen md:h-screen bg-[#f4ebd9] text-[#1a1105] font-sans overflow-visible md:overflow-hidden pt-[70px]"
+      className="relative w-full min-h-screen bg-[#f4ebd9] text-[#1a1105] font-sans overflow-visible pt-[70px]"
     >
       {/* Subtle ambient glows */}
       <div className="absolute top-[10%] right-[15%] w-[600px] h-[600px] bg-[#b0741a]/4 rounded-full blur-[160px] pointer-events-none z-0" />

@@ -192,7 +192,7 @@ export default function ProductSection() {
     <section
       id="products"
       ref={sectionRef}
-      className="relative w-full min-h-screen md:h-screen text-[#1a1105] font-sans overflow-hidden flex flex-col md:flex-row items-start md:items-center px-5 sm:px-8 md:px-16 lg:px-24 pt-24 md:pt-0 pb-8 md:pb-0"
+      className="relative w-full min-h-screen text-[#1a1105] font-sans flex flex-col md:flex-row items-start md:items-center px-5 sm:px-8 md:px-16 lg:px-24 pt-24 md:pt-0 pb-8 md:pb-0"
     >
       {/* Background image */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
