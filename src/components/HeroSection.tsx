@@ -86,7 +86,7 @@ export default function HeroSection() {
   return (
     <section
       id="hero-root-container"
-      className="h-dvh w-full max-w-full bg-[#f4ebd9] text-[#1a1105] font-sans flex flex-col justify-start relative select-none overflow-hidden"
+      className="min-h-dvh w-full max-w-full bg-[#f4ebd9] text-[#1a1105] font-sans flex flex-col justify-start relative select-none"
     >
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <picture>
