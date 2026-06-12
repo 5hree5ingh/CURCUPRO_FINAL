@@ -156,10 +156,6 @@ export default function HeroSection() {
             <span className="text-[#b0741a] font-semibold">Home</span>
             <span className="w-8 h-[2px] bg-[#b0741a] mt-1.5 rounded-full" />
           </div>
-          <a href="#products" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
-            Products
-            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#b0741a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
-          </a>
           <a href="#about" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
             About Us
             <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#b0741a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
