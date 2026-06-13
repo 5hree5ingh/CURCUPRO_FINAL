@@ -1,0 +1,42 @@
+/* Animates the conic angle as a real CSS property */
+@property --star-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/*
+  The mask trick:
+  - padding: 1px creates a 1px "frame" around the content area
+  - The conic-gradient fills the whole element
+  - The mask cuts out everything EXCEPT that 1px frame
+  Result: only a thin 1px border strip is visible — the interior is transparent
+*/
+.star-border-line {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;      /* matches card's rounded-2xl */
+  padding: 1px;
+  background: conic-gradient(
+    from var(--star-angle),
+    transparent 0%,
+    transparent 30%,
+    var(--star-color, #d08f30) 45%,
+    #fff8e0 50%,
+    var(--star-color, #d08f30) 55%,
+    transparent 70%,
+    transparent 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 11;
+  animation: star-border-spin var(--star-speed, 4s) linear infinite;
+}
+
+@keyframes star-border-spin {
+  to { --star-angle: 360deg; }
+}

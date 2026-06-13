@@ -179,8 +179,8 @@ export default function WhySyntheticSection() {
                 ease: [0.16, 1, 0.3, 1],
               }}
               className={`grid grid-cols-3 gap-0 border-t border-[#b0741a]/8 ${i === comparisonData.length - 1
-                  ? "border-b border-[#b0741a]/8"
-                  : ""
+                ? "border-b border-[#b0741a]/8"
+                : ""
                 }`}
             >
               {/* Attribute */}

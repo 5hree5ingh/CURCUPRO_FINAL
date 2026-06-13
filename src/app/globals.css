@@ -14,7 +14,8 @@ html {
   /* Lenis handles smooth scrolling */
 }
 
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
@@ -30,7 +31,9 @@ html.lenis, html.lenis body {
   overflow: hidden;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -158,9 +161,11 @@ section {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
@@ -176,14 +181,12 @@ section {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    110deg,
-    transparent 20%,
-    rgba(240, 192, 96, 0.10) 35%,
-    rgba(255, 224, 140, 0.45) 50%,
-    rgba(240, 192, 96, 0.10) 65%,
-    transparent 80%
-  );
+  background: linear-gradient(110deg,
+      transparent 20%,
+      rgba(240, 192, 96, 0.10) 35%,
+      rgba(255, 224, 140, 0.45) 50%,
+      rgba(240, 192, 96, 0.10) 65%,
+      transparent 80%);
   background-size: 300% 100%;
   background-position: 150% center;
   animation: badge-shine-sweep 3s ease-in-out infinite;
@@ -194,7 +197,15 @@ section {
 }
 
 @keyframes badge-shine-sweep {
-  0%   { background-position: 150% center; }
-  55%  { background-position: -50% center; }
-  100% { background-position: -50% center; }
+  0% {
+    background-position: 150% center;
+  }
+
+  55% {
+    background-position: -50% center;
+  }
+
+  100% {
+    background-position: -50% center;
+  }
 }

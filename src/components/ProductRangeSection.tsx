@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { ChevronRight } from "lucide-react";
+import StarBorder from "./StarBorder";
 
 const products = [
   {
@@ -101,6 +102,9 @@ export default function ProductRangeSection() {
                   </span>
                 </div>
               )}
+
+              {/* Thin animated golden border — purely decorative, nothing else changes */}
+              <StarBorder color={product.accent} speed="5s" />
 
               <div
                 className={`relative h-full border border-[#f4ebd9]/8 rounded-2xl p-8 lg:p-10 flex flex-col transition-all duration-700 cursor-default
