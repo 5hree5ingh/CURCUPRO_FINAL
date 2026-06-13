@@ -4,6 +4,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 import SplashCursor from "@/components/SplashCursor";
+import Script from "next/script";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -20,6 +21,20 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("h-full w-full overflow-x-hidden", "font-sans", geist.variable)} suppressHydrationWarning>
       <body className="h-full w-full overflow-x-hidden">
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-LTT1KWBMMX"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-LTT1KWBMMX');
+          `}
+        </Script>
         <SplashCursor
           DENSITY_DISSIPATION={3.5}
           VELOCITY_DISSIPATION={2}
@@ -39,4 +54,5 @@ export default function RootLayout({
     </html>
   );
 }
+
 
