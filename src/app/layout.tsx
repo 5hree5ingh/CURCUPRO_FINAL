@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("h-full w-full overflow-x-hidden", "font-sans", geist.variable)}>
+    <html lang="en" className={cn("h-full w-full overflow-x-hidden", "font-sans", geist.variable)} suppressHydrationWarning>
       <body className="h-full w-full overflow-x-hidden">
         <SplashCursor
           DENSITY_DISSIPATION={3.5}
