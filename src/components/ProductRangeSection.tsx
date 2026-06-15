@@ -49,7 +49,7 @@ export default function ProductRangeSection() {
     <section
       id="product-range"
       ref={sectionRef}
-      className="relative w-full min-h-screen bg-[#1a1105] text-[#f4ebd9] font-sans overflow-visible py-20 md:py-28"
+      className="relative w-full min-h-screen lg:h-screen lg:max-h-screen bg-[#1a1105] text-[#f4ebd9] font-sans overflow-visible py-10 lg:py-0 flex flex-col justify-center"
     >
       {/* Ambient glows */}
       <div className="absolute top-[15%] left-[5%] w-[500px] h-[500px] bg-[#b0741a]/5 rounded-full blur-[180px] pointer-events-none z-0" />
@@ -62,14 +62,14 @@ export default function ProductRangeSection() {
         }}
       />
 
-      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 md:px-16 lg:px-24">
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 md:px-16 lg:px-24 flex flex-col justify-center">
 
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16 md:mb-20 text-center"
+          className="mb-6 md:mb-10 lg:mb-8 text-center"
         >
           {/* Main headline — single line */}
           <h2 className="font-serif text-[36px] sm:text-[50px] md:text-[62px] lg:text-[72px] font-medium leading-[1.06] tracking-tight">
@@ -107,17 +107,19 @@ export default function ProductRangeSection() {
               <StarBorder color={product.accent} speed="5s" />
 
               <div
-                className={`relative h-full border border-[#f4ebd9]/8 rounded-2xl p-8 lg:p-10 flex flex-col transition-all duration-700 cursor-default
-                  bg-gradient-to-b from-[#f4ebd9]/[0.04] to-transparent
-                  hover:border-[#b0741a]/25 hover:bg-[#f4ebd9]/[0.06]
-                  hover:shadow-[0_20px_60px_rgba(176,116,26,0.08)]
+                className={`relative h-full rounded-2xl p-6 lg:p-8 flex flex-col transition-all duration-700 cursor-default
                   group-hover:-translate-y-1`}
+                style={{
+                  background: 'linear-gradient(165deg, rgba(244,235,217,0.06) 0%, rgba(244,235,217,0.02) 50%, transparent 100%)',
+                  border: '1px solid rgba(208, 163, 78, 0.2)',
+                  boxShadow: '0 1px 0 rgba(244,235,217,0.08) inset, 0 8px 24px rgba(176,116,26,0.10), 0 4px 12px rgba(0,0,0,0.15), 0 20px 50px rgba(0,0,0,0.12), 0 0 0 1px rgba(208,163,78,0.06)',
+                }}
               >
-                {/* Decorative top accent line */}
+                {/* Premium gold top accent line */}
                 <div
-                  className="absolute top-0 left-8 right-8 h-[1px] rounded-full opacity-40 group-hover:opacity-70 transition-opacity duration-500"
+                  className="absolute top-0 left-6 right-6 h-[2px] rounded-full opacity-60 group-hover:opacity-90 transition-opacity duration-500"
                   style={{
-                    background: `linear-gradient(90deg, transparent, ${product.accent}, transparent)`,
+                    background: `linear-gradient(90deg, transparent, rgba(218,175,85,0.6) 20%, ${product.accent} 50%, rgba(218,175,85,0.6) 80%, transparent)`,
                   }}
                 />
 
@@ -129,11 +131,12 @@ export default function ProductRangeSection() {
                 {/* Purity number — the hero of the card */}
                 <div className="mb-4">
                   <span
-                    className="font-serif text-[42px] sm:text-[50px] lg:text-[56px] font-medium leading-none tracking-tight"
+                    className="font-serif text-[36px] sm:text-[42px] lg:text-[48px] font-medium leading-none tracking-tight"
                     style={{
                       background: `linear-gradient(135deg, #f4ebd9, ${product.accent})`,
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
+                      display: "inline-block",
                     }}
                   >
                     {product.purity}
@@ -154,7 +157,7 @@ export default function ProductRangeSection() {
                 </p>
 
                 {/* Description */}
-                <p className="text-[#f4ebd9]/45 text-sm font-sans leading-relaxed mb-6 flex-1">
+                <p className="text-[#f4ebd9]/45 text-sm font-sans leading-relaxed mb-4 flex-1">
                   {product.description}
                 </p>
 

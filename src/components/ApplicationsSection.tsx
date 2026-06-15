@@ -1,65 +1,105 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useInView } from "motion/react";
+import React from "react";
 import MagicBento from "./MagicBento";
 
 export default function ApplicationsSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
-
   return (
     <section
       id="applications"
-      ref={sectionRef}
-      className="relative w-full bg-[#f4ebd9] text-[#1a1105] font-sans overflow-hidden py-24 md:py-36"
+      className="relative w-full overflow-hidden min-h-screen lg:h-screen lg:max-h-screen flex flex-col justify-center py-10 lg:py-0"
+      style={{
+        background: `#f4ebd9`
+      }}
     >
-      {/* Ambient glows */}
-      <div className="absolute top-[10%] right-[15%] w-[500px] h-[500px] bg-[#8c540c]/5 rounded-full blur-[180px] pointer-events-none z-0" />
-      <div className="absolute bottom-[5%] left-[10%] w-[400px] h-[400px] bg-[#b0741a]/4 rounded-full blur-[140px] pointer-events-none z-0" />
+      {/* Warm ambient glow - top left */}
+      <div 
+        className="absolute top-0 left-0 w-[600px] h-[600px] pointer-events-none z-0"
+        style={{
+          background: `radial-gradient(circle at center, rgba(176,116,26,0.08) 0%, transparent 70%)`,
+          transform: 'translate(-30%, -30%)',
+          filter: 'blur(80px)',
+        }}
+      />
+      
+      {/* Warm ambient glow - top right */}
+      <div 
+        className="absolute top-0 right-0 w-[500px] h-[500px] pointer-events-none z-0"
+        style={{
+          background: `radial-gradient(circle at center, rgba(208,143,48,0.06) 0%, transparent 70%)`,
+          transform: 'translate(30%, -20%)',
+          filter: 'blur(100px)',
+        }}
+      />
 
-      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 md:px-16 lg:px-24">
+      {/* Center luminous highlight */}
+      <div 
+        className="absolute top-[30%] left-1/2 w-[800px] h-[400px] pointer-events-none z-0"
+        style={{
+          background: `radial-gradient(ellipse at center, rgba(255,255,255,0.6) 0%, transparent 70%)`,
+          transform: 'translateX(-50%)',
+          filter: 'blur(60px)',
+        }}
+      />
+
+      {/* Bottom warm glow */}
+      <div 
+        className="absolute bottom-0 left-1/2 w-[900px] h-[300px] pointer-events-none z-0"
+        style={{
+          background: `radial-gradient(ellipse at center, rgba(176,116,26,0.05) 0%, transparent 70%)`,
+          transform: 'translateX(-50%) translateY(30%)',
+          filter: 'blur(80px)',
+        }}
+      />
+
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 md:px-16 lg:px-24 flex flex-col justify-center">
 
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-14 md:mb-20 text-center"
-        >
-          <p className="text-[#b0741a] text-[10px] sm:text-xs font-semibold tracking-[0.25em] uppercase mb-3">
+        <div className="mb-6 md:mb-10 lg:mb-8 text-center">
+          <p className="text-[#b0741a] text-xs md:text-sm tracking-[0.3em] font-semibold uppercase font-sans">
             Applications
           </p>
-          <h2 className="font-serif text-[32px] sm:text-[48px] md:text-[58px] lg:text-[68px] font-medium leading-[1.06] tracking-tight">
-            <span className="text-[#1a1105]">Where </span>
-            <span className="bg-gradient-to-r from-[#d08f30] via-[#b0741a] to-[#8c540c] bg-clip-text text-transparent">
-              purity
-            </span>
-            <span className="text-[#1a1105]"> meets purpose.</span>
-          </h2>
-        </motion.div>
+          
+          {/* Top Divider: gradient lines with circle */}
+          <div className="flex items-center justify-center gap-3 mt-1.5 mb-2.5">
+            <div className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#b0741a]/50"></div>
+            <div className="w-1.5 h-1.5 rounded-full border border-[#b0741a] bg-transparent"></div>
+            <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#b0741a]/50"></div>
+          </div>
 
-        {/* MagicBento — exact props from React Bits reference */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full overflow-hidden"
-        >
+          <h2 className="font-serif text-[36px] sm:text-[48px] md:text-[58px] lg:text-[68px] font-medium leading-[1.06] tracking-tight text-[#1a1105]">
+            Where <span className="text-[#bf801d] md:bg-gradient-to-r md:from-[#b0741a] md:via-[#d08f30] md:to-[#8c540c] md:bg-clip-text md:text-transparent italic">purity</span> meets purpose.
+          </h2>
+
+          {/* Bottom Divider with botanical crest */}
+          <div className="flex items-center justify-center gap-5 mt-3">
+            <div className="w-16 h-[1px] bg-gradient-to-r from-transparent to-[#b0741a]/40"></div>
+            <svg viewBox="0 0 24 24" className="w-6 h-6 fill-none stroke-[#b0741a] stroke-[1.25] stroke-linecap-round stroke-linejoin-round">
+              <path d="M12 21v-7" className="stroke-[#b0741a]/40" />
+              <path d="M12 14c0-3.5-1.5-6 0-9.5 1.5 3.5 0 6 0 9.5z" fill="#b0741a" fillOpacity="0.15" />
+              <path d="M12 14c-2.25-1.25-4.5-0.75-5.5-3.75 2.25 0.5 4 2.25 5.5 3.75z" fill="#b0741a" fillOpacity="0.15" />
+              <path d="M12 14c2.25-1.25 4.5-0.75 5.5-3.75-2.25 0.5-4 2.25-5.5 3.75z" fill="#b0741a" fillOpacity="0.15" />
+            </svg>
+            <div className="w-16 h-[1px] bg-gradient-to-l from-transparent to-[#b0741a]/40"></div>
+          </div>
+        </div>
+
+        {/* MagicBento cards */}
+        <div className="w-full">
           <MagicBento
             textAutoHide={true}
-            enableStars={true}
-            enableSpotlight={true}
-            enableBorderGlow={true}
-            enableTilt={true}
-            enableMagnetism={true}
-            clickEffect={true}
-            spotlightRadius={380}
-            particleCount={12}
+            enableStars={false}
+            enableSpotlight={false}
+            enableBorderGlow={false}
+            enableTilt={false}
+            enableMagnetism={false}
+            clickEffect={false}
+            spotlightRadius={0}
+            particleCount={0}
             glowColor="176, 116, 26"
-            disableAnimations={false}
+            disableAnimations={true}
           />
-        </motion.div>
+        </div>
 
       </div>
     </section>
