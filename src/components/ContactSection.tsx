@@ -262,7 +262,7 @@ export default function ContactSection() {
         {/* ─── Footer ─── */}
         <div className="relative z-10 border-t border-[#f4ebd9]/[0.06]">
           <div className="w-full max-w-[1200px] mx-auto px-5 sm:px-8 md:px-16 lg:px-24 py-10 lg:py-14">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            <div className="grid grid-cols-1 md:grid-cols-[auto_1fr_auto] gap-8 items-center">
 
               {/* Logo */}
               <div className="flex items-center gap-3">
