@@ -23,17 +23,23 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     const rafId = requestAnimationFrame(raf);
 
-    // Make anchor links work smoothly with Lenis
-    const anchors = document.querySelectorAll<HTMLAnchorElement>("a[href^='#']");
-    anchors.forEach((anchor) => {
-      anchor.addEventListener("click", (e) => {
-        e.preventDefault();
-        const target = document.querySelector(anchor.getAttribute("href") || "");
-        if (target) lenis.scrollTo(target as HTMLElement, { offset: 0, duration: 1.6 });
-      });
-    });
+    // Use event delegation so ALL anchor links (including ones mounted later,
+    // like footer links inside ContactSection) get smooth Lenis scrolling.
+    const handleClick = (e: MouseEvent) => {
+      const anchor = (e.target as HTMLElement).closest<HTMLAnchorElement>("a[href^='#']");
+      if (!anchor) return;
+      const href = anchor.getAttribute("href");
+      if (!href) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      lenis.scrollTo(target as HTMLElement, { offset: 0, duration: 1.6 });
+    };
+
+    document.addEventListener("click", handleClick);
 
     return () => {
+      document.removeEventListener("click", handleClick);
       cancelAnimationFrame(rafId);
       lenis.destroy();
     };

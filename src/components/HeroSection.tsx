@@ -161,33 +161,42 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <nav id="navbar-menu-items" className="hidden md:flex items-center space-x-12 text-[15px] font-medium tracking-wide absolute left-1/2 -translate-x-1/2">
-          <div className="relative flex flex-col items-center group cursor-pointer">
+        <nav id="navbar-menu-items" className="hidden md:flex items-center space-x-10 text-[15px] font-medium tracking-wide absolute left-1/2 -translate-x-1/2">
+          <a href="#hero-root-container" className="relative flex flex-col items-center group cursor-pointer py-1">
             <span className="text-[#b0741a] font-semibold">Home</span>
             <span className="w-8 h-[2px] bg-[#b0741a] mt-1.5 rounded-full" />
-          </div>
-          <a href="#products" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
+          </a>
+          <a href="#about" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
+            Why Synthetic
+            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#b0741a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
+          </a>
+          <a href="#product-range" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
             Products
             <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#b0741a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
           </a>
-          <a href="#about" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
-            About Us
+          <a href="#applications" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
+            Applications
             <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#b0741a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
           </a>
-          <a href="#quality" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
-            Quality
+          <a href="#resources" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
+            Resources
+            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#b0741a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
+          </a>
+          <a href="#contact" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
+            Contact
             <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#b0741a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
           </a>
         </nav>
 
         <div id="header-actions-mobile" className="flex items-center space-x-3 md:hidden">
           {/* Mobile-only CTA button */}
-          <button
+          <a
             id="header-cta-btn-mobile"
-            className="px-2 py-1 bg-[#bf801d] hover:bg-[#a36b15] active:scale-98 text-white rounded-md font-sans font-semibold text-[9px] tracking-normal uppercase transition-all duration-300 shadow-[0_2px_4px_rgba(191,128,29,0.12)] cursor-pointer"
+            href="#contact"
+            className="px-2.5 py-1.5 bg-[#bf801d] hover:bg-[#a36b15] active:scale-98 text-white rounded-md font-sans font-semibold text-[9px] tracking-normal uppercase transition-all duration-300 shadow-[0_2px_4px_rgba(191,128,29,0.12)] cursor-pointer text-center inline-block"
           >
             BULK QUOTE
-          </button>
+          </a>
 
           <button className="flex flex-col items-center justify-center w-8 h-8 gap-[4px] cursor-pointer" aria-label="Open menu">
             <span className="w-5 h-[2px] bg-[#1a1105] rounded-full" />
@@ -271,13 +280,14 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="hidden md:flex flex-row items-center gap-6 mt-2"
           >
-            <button
+            <a
               id="cta-btn-request-quote"
+              href="#contact"
               className="group/btn px-8 py-3 bg-gradient-to-r from-[#b0741a] to-[#965e0f] hover:from-[#c2842b] hover:to-[#a36513] text-white rounded-lg font-sans font-semibold text-xs md:text-sm tracking-widest uppercase transition-all duration-300 active:scale-98 flex items-center justify-center space-x-2 shadow-[0_4px_20px_rgba(176,116,26,0.18)] hover:shadow-[0_6px_24px_rgba(176,116,26,0.3)] cursor-pointer"
             >
               <span>REQUEST BULK QUOTE</span>
               <ChevronRight size={16} strokeWidth={2.5} className="transform group-hover/btn:translate-x-1 transition-transform duration-200" />
-            </button>
+            </a>
 
             <button
               id="cta-btn-download-specs"

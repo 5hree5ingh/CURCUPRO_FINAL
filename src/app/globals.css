@@ -38,11 +38,10 @@ html.lenis body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* GPU acceleration for animated elements */
+/* GPU acceleration hint — NOTE: do NOT add transform: translateZ(0) here;
+   it creates stacking contexts that break Lenis scrollTo offset calculation */
 section {
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  will-change: auto;
 }
 
 @theme inline {

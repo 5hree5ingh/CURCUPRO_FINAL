@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useMemo } from "react";
 import { motion, useInView } from "motion/react";
 
 /* ─── Icons ─── */
@@ -78,8 +78,26 @@ const quickDownloads = [
   { icon: <StabilityIcon />, title: "Stability data", subtitle: "ICH summary", cta: "Download" },
 ];
 
+/* ─── Stable pseudo-random width seeder (deterministic, no Math.random in render) ─── */
+function seededWidth(seed: number): number {
+  // Simple LCG — same seed always gives same value, no SSR/client mismatch
+  const x = Math.sin(seed + 1) * 10000;
+  return 60 + (x - Math.floor(x)) * 30;
+}
+
 /* ─── Decorative Document Preview ─── */
 function DocPreview({ lineCount }: { lineCount: number }) {
+  // Pre-compute widths once; seededWidth is pure/deterministic so SSR and client agree
+  const lineWidths = useMemo(
+    () =>
+      Array.from({ length: lineCount }, (_, i) => {
+        if (i === 0) return '45%';
+        if (i === lineCount - 1) return '30%';
+        return `${seededWidth(i * lineCount).toFixed(4)}%`;
+      }),
+    [lineCount]
+  );
+
   return (
     <div className="w-full aspect-[4/3] rounded-xl relative overflow-hidden mb-4"
       style={{
@@ -94,15 +112,15 @@ function DocPreview({ lineCount }: { lineCount: number }) {
           background: 'linear-gradient(225deg, #f4ebd9 50%, rgba(208,163,78,0.15) 50%)',
         }}
       />
-      
+
       {/* Document lines */}
       <div className="p-4 pt-5 flex flex-col gap-[6px]">
-        {Array.from({ length: lineCount }).map((_, i) => (
+        {lineWidths.map((w, i) => (
           <div
             key={i}
             className="h-[3px] rounded-full"
             style={{
-              width: i === 0 ? '45%' : i === lineCount - 1 ? '30%' : `${60 + Math.random() * 30}%`,
+              width: w,
               background: i === 0
                 ? 'linear-gradient(90deg, rgba(176,116,26,0.25), rgba(176,116,26,0.08))'
                 : 'rgba(176,116,26,0.06)',
