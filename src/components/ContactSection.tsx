@@ -92,9 +92,6 @@ export default function ContactSection() {
             <p className="font-sans text-[13px] sm:text-[14px] text-[#f4ebd9]/35 mt-4 max-w-[460px] mx-auto leading-relaxed">
               Evaluate our curcumin quality firsthand before you commit.
             </p>
-            <p className="font-sans text-[11px] sm:text-[12px] text-[#d0a34e]/60 mt-2 max-w-[460px] mx-auto leading-relaxed tracking-wide">
-              ✦ Free 50g evaluation sample — ships within 3 business days
-            </p>
           </motion.div>
 
           {/* ── Contact Info Row ── */}
@@ -259,17 +256,6 @@ export default function ContactSection() {
                 )}
               </div>
 
-              {/* Trust indicators */}
-              <div className="flex items-center justify-center gap-4 mt-5">
-                {["No commitment", "Free shipping", "COA included"].map((t) => (
-                  <span key={t} className="flex items-center gap-1.5 font-sans text-[9px] sm:text-[10px] tracking-wider uppercase text-[#f4ebd9]/20">
-                    <svg viewBox="0 0 16 16" className="w-3 h-3 text-[#d0a34e]/40" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="m4 8 3 3 5-5" />
-                    </svg>
-                    {t}
-                  </span>
-                ))}
-              </div>
             </motion.form>
           )}
         </div>
@@ -280,18 +266,14 @@ export default function ContactSection() {
             <div className="grid grid-cols-1 md:grid-cols-[auto_1fr_auto] gap-8 items-center">
 
               {/* Logo */}
-              <div className="flex items-center gap-3">
-                <svg className="w-7 h-7 text-[#b0741a]/70" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M50 8 L86 29 L86 71 L50 92 L14 71 L14 29 Z" stroke="currentColor" strokeWidth="4" strokeLinejoin="round" />
-                  <path d="M32 35 L50 65 L68 40" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-                  <circle cx="32" cy="35" r="4" fill="#1a1105" stroke="currentColor" strokeWidth="2" />
-                  <circle cx="50" cy="65" r="4" fill="#1a1105" stroke="currentColor" strokeWidth="2" />
-                  <circle cx="68" cy="40" r="4" fill="#1a1105" stroke="currentColor" strokeWidth="2" />
-                </svg>
-                <div className="flex flex-col leading-none">
-                  <span className="text-[12px] font-bold tracking-[0.05em] text-[#f4ebd9]/60">CURCUMIN</span>
-                  <span className="text-[7px] font-semibold tracking-[0.3em] text-[#b0741a]/40 mt-0.5 uppercase">Solutions</span>
-                </div>
+              <div className="flex items-center">
+                <a href="#hero-root-container" className="block">
+                  <img
+                    src="/curcumex_logo.png"
+                    alt="Curcumex"
+                    className="h-6 sm:h-7 w-auto brightness-[0.6] opacity-60"
+                  />
+                </a>
               </div>
 
               {/* Nav */}

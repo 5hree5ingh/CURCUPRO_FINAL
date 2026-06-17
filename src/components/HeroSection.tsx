@@ -5,38 +5,6 @@ import { ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
 import ShinyText from "./ShinyText";
 
-// Pointed-topped hexagon logo with Curcumin synthesis chemical bonds
-const HexagonLogo: React.FC = () => {
-  return (
-    <svg
-      id="curcumin-brand-logo"
-      className="w-12 h-12 text-[#bf801d]"
-      viewBox="0 0 100 100"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M50 8 L86 29 L86 71 L50 92 L14 71 L14 29 Z"
-        stroke="currentColor"
-        strokeWidth="4"
-        strokeLinejoin="round"
-        className="text-[#bf801d]"
-      />
-      <path
-        d="M32 35 L50 65 L68 40"
-        stroke="currentColor"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="text-[#bf801d]"
-      />
-      <circle cx="32" cy="35" r="5" fill="#ffffff" stroke="currentColor" strokeWidth="2" />
-      <circle cx="50" cy="65" r="5" fill="#ffffff" stroke="currentColor" strokeWidth="2" />
-      <circle cx="68" cy="40" r="5" fill="#ffffff" stroke="currentColor" strokeWidth="2" />
-    </svg>
-  );
-};
-
 interface ShieldIconProps {
   percentage: string;
 }
@@ -128,49 +96,25 @@ export default function HeroSection() {
       {/* Header / Navigation bar — STICKY */}
       <header
         id="main-navigation-header"
-        className={`fixed top-0 left-0 right-0 z-50 px-4 py-3 md:px-16 lg:px-24 md:py-4 flex items-center justify-between transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 px-5 py-3 md:px-16 lg:px-24 md:py-5 flex items-center justify-between transition-all duration-700 ${
           scrolled
-            ? "bg-[#fbf7ee]/95 backdrop-blur-xl shadow-[0_2px_20px_rgba(176,116,26,0.08)] border-b border-[#e5dcd0]/60"
-            : "bg-transparent"
+            ? "py-2.5 md:py-3.5 backdrop-blur-2xl"
+            : ""
         }`}
+        style={scrolled ? {
+          background: 'linear-gradient(180deg, rgba(244,235,217,0.45) 0%, rgba(244,235,217,0.15) 100%)',
+          borderBottom: '1px solid rgba(208,163,78,0.08)',
+          boxShadow: '0 4px 30px rgba(26,17,5,0.03)',
+        } : undefined}
       >
-        <div id="brand-logo-group" className="flex items-center space-x-3 md:space-x-4">
-          <div className="scale-85 md:scale-100 origin-left flex items-center justify-center">
-            <svg
-              id="curcumin-brand-logo"
-              className="w-9 h-9 md:w-12 md:h-12 text-[#bf801d]"
-              viewBox="0 0 100 100"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M50 8 L86 29 L86 71 L50 92 L14 71 L14 29 Z"
-                stroke="currentColor"
-                strokeWidth="4"
-                strokeLinejoin="round"
-                className="text-[#bf801d]"
-              />
-              <path
-                d="M32 35 L50 65 L68 40"
-                stroke="currentColor"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-[#bf801d]"
-              />
-              <circle cx="32" cy="35" r="5" fill="#ffffff" stroke="currentColor" strokeWidth="2" />
-              <circle cx="50" cy="65" r="5" fill="#ffffff" stroke="currentColor" strokeWidth="2" />
-              <circle cx="68" cy="40" r="5" fill="#ffffff" stroke="currentColor" strokeWidth="2" />
-            </svg>
-          </div>
-          <div className="flex flex-col select-none leading-none">
-            <span className="text-base md:text-2xl font-bold tracking-[0.05em] text-[#1a1105]">
-              CURCUMIN
-            </span>
-            <span className="text-[9px] md:text-xs font-semibold tracking-[0.38em] text-[#b0741a] mt-0.5 md:mt-1 uppercase">
-              SOLUTIONS
-            </span>
-          </div>
+        <div id="brand-logo-group" className="flex items-center">
+          <a href="#hero-root-container" className="block">
+            <img
+              src="/curcumex_logo.png"
+              alt="Curcumex"
+              className="h-8 md:h-10 w-auto"
+            />
+          </a>
         </div>
 
         <nav id="navbar-menu-items" className="hidden md:flex items-center space-x-10 text-[15px] font-medium tracking-wide absolute left-1/2 -translate-x-1/2">
