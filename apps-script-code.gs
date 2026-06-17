@@ -1,6 +1,6 @@
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
-const SHEET_ID     = "1rby4czk-qR_oK809MmBujzYSkU4fWumiLoeYhu020qE";
-const NOTIFY_EMAIL = "shreyanshmall2@gmail.com";
+const SHEET_ID     = "1v-bJEaX57keHkvxz8u4Leu-eHKEpyqoiOkTa8oAA8rQ";
+const NOTIFY_EMAIL = "aurvaaywellness@gmail.com";
 // ──────────────────────────────────────────────────────────────────────────────
 
 function doPost(e) {
