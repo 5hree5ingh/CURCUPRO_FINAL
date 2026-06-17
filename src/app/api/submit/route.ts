@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 import { google } from "googleapis";
 import path from "path";
 
-const SPREADSHEET_ID = "1rby4czk-qR_oK809MmBujzYSkU4fWumiLoeYhu020qE";
+const SPREADSHEET_ID = "1v-bJEaX57keHkvxz8u4Leu-eHKEpyqoiOkTa8oAA8rQ";
 const SERVICE_ACCOUNT_FILE = path.join(process.cwd(), "service-account.json");
 
 export async function POST(req: NextRequest) {
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
     await transporter.sendMail({
       from: `"Curcumin Solutions Website" <${process.env.GMAIL_USER}>`,
-      to: "shreyanshmall2@gmail.com",
+      to: "aurvaaywellness@gmail.com",
       subject: `New Sample Request — ${name}`,
       html: `
         <div style="font-family:sans-serif;max-width:520px;margin:0 auto;background:#fff;border-radius:10px;overflow:hidden;border:1px solid #e5dcd0;">
