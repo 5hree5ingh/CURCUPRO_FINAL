@@ -58,6 +58,41 @@ async function sendEmail(name: string, email: string, phone: string, grade: stri
       </div>
     `,
   });
+
+  // Auto-reply to the lead
+  await transporter.sendMail({
+    from: `"Curcumin Solutions" <${process.env.GMAIL_USER}>`,
+    to: email,
+    subject: `Thanks ${name} — We've received your sample request`,
+    html: `
+      <div style="font-family:sans-serif;max-width:520px;margin:0 auto;background:#fff;border-radius:10px;overflow:hidden;border:1px solid #e5dcd0;">
+        <div style="background:linear-gradient(135deg,#b0741a,#8c540c);padding:24px 32px;">
+          <h2 style="color:#fff;margin:0;font-size:20px;letter-spacing:0.02em;">Sample Request Received ✓</h2>
+          <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:12px;">Curcumin Solutions — ${timestamp}</p>
+        </div>
+        <div style="padding:28px 32px;">
+          <p style="color:#1a1105;font-size:15px;line-height:1.7;margin:0 0 16px;">Hi ${name},</p>
+          <p style="color:#493c2c;font-size:14px;line-height:1.7;margin:0 0 16px;">
+            Thank you for your interest in our synthetic curcumin. We've received your request for <strong style="color:#b0741a;">${grade}</strong>.
+          </p>
+          <p style="color:#493c2c;font-size:14px;line-height:1.7;margin:0 0 20px;">
+            Our team will review your requirements and get back to you within <strong>24 hours</strong> with sample details, pricing, and shipping information.
+          </p>
+          <div style="background:#faf7f2;border:1px solid #f0ebe0;border-radius:8px;padding:16px 20px;margin-bottom:16px;">
+            <p style="color:#888;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;margin:0 0 6px;">Your Request Summary</p>
+            <p style="color:#1a1105;font-size:13px;margin:2px 0;"><strong>Grade:</strong> ${grade}</p>
+            <p style="color:#1a1105;font-size:13px;margin:2px 0;"><strong>Requirements:</strong> ${message || "—"}</p>
+          </div>
+          <p style="color:#493c2c;font-size:13px;line-height:1.6;margin:0;">
+            Meanwhile, feel free to reach us at <a href="tel:+919045101186" style="color:#b0741a;text-decoration:none;">+91 90451 01186</a> or reply to this email.
+          </p>
+        </div>
+        <div style="background:#faf7f2;padding:16px 32px;text-align:center;border-top:1px solid #f0ebe0;">
+          <a href="https://www.curcumex.com" style="color:#b0741a;font-size:12px;text-decoration:none;">Visit curcumex.com →</a>
+        </div>
+      </div>
+    `,
+  });
 }
 
 // ── Sheets task ───────────────────────────────────────────────────────────────

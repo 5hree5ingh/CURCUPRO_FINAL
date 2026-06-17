@@ -4,13 +4,47 @@ import SmoothScroll from "@/components/SmoothScroll";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 import SplashCursor from "@/components/SplashCursor";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import Script from "next/script";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
-  title: "Curcumin Solutions",
-  description: "India's First Synthetic Manufacturer of high purity Curcumin.",
+  title: "Curcumin Solutions — India's First Synthetic Curcumin Manufacturer",
+  description:
+    "99.5%+ purity synthetic curcumin for pharma, nutraceutical, and food industries. ISO-certified, year-round supply, zero batch variation. Request a free sample.",
+  keywords: [
+    "synthetic curcumin",
+    "curcumin manufacturer India",
+    "curcumin supplier",
+    "99.5% purity curcumin",
+    "pharma grade curcumin",
+    "curcumin powder",
+    "E100 colorant",
+    "curcuminoids",
+  ],
+  openGraph: {
+    title: "Curcumin Solutions — India's First Synthetic Curcumin Manufacturer",
+    description:
+      "99.5%+ purity synthetic curcumin for pharma, nutraceutical, and food industries. Request a free sample today.",
+    url: "https://www.curcumex.com",
+    siteName: "Curcumin Solutions",
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Curcumin Solutions — Synthetic Curcumin Manufacturer",
+    description:
+      "99.5%+ purity. Zero batch variation. Year-round supply. Request a free sample.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://www.curcumex.com",
+  },
 };
 
 export default function RootLayout({
@@ -50,6 +84,7 @@ export default function RootLayout({
         <SmoothScroll>
           {children}
         </SmoothScroll>
+        <WhatsAppButton />
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
 import ShinyText from "./ShinyText";
@@ -87,6 +87,14 @@ const ShieldIcon: React.FC<ShieldIconProps> = ({ percentage }) => {
 };
 
 export default function HeroSection() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const purityMetrics = [
     { value: "99.5%", label: "Purity (HPLC)" },
     { value: "0.0%", label: "Batch variation" },
@@ -97,7 +105,7 @@ export default function HeroSection() {
   return (
     <section
       id="hero-root-container"
-      className="min-h-dvh w-full max-w-full bg-[#f4ebd9] text-[#1a1105] font-sans flex flex-col justify-start relative select-none"
+      className="min-h-dvh w-full max-w-full bg-[#f4ebd9] text-[#1a1105] font-sans flex flex-col justify-start relative select-none pt-14 md:pt-16"
     >
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <picture>
@@ -117,10 +125,14 @@ export default function HeroSection() {
       {/* Ambient warm glow behind text */}
       <div className="absolute top-[20%] left-[8%] w-[500px] h-[500px] bg-[#b0741a]/6 rounded-full blur-[130px] pointer-events-none z-0" />
 
-      {/* Header / Navigation bar */}
+      {/* Header / Navigation bar — STICKY */}
       <header
         id="main-navigation-header"
-        className="w-full z-10 relative px-4 py-3 md:px-16 lg:px-24 md:py-5 max-w-[calc(100%-2rem)] md:max-w-full mx-auto md:mx-0 mt-4 md:mt-0 bg-[#fbf7ee]/95 md:bg-transparent border border-[#e5dcd0] md:border-none rounded-[20px] md:rounded-none shadow-[0_4px_20px_rgba(176,116,26,0.05)] md:shadow-none backdrop-blur-md md:backdrop-blur-none flex items-center justify-between"
+        className={`fixed top-0 left-0 right-0 z-50 px-4 py-3 md:px-16 lg:px-24 md:py-4 flex items-center justify-between transition-all duration-500 ${
+          scrolled
+            ? "bg-[#fbf7ee]/95 backdrop-blur-xl shadow-[0_2px_20px_rgba(176,116,26,0.08)] border-b border-[#e5dcd0]/60"
+            : "bg-transparent"
+        }`}
       >
         <div id="brand-logo-group" className="flex items-center space-x-3 md:space-x-4">
           <div className="scale-85 md:scale-100 origin-left flex items-center justify-center">
@@ -289,13 +301,14 @@ export default function HeroSection() {
               <ChevronRight size={16} strokeWidth={2.5} className="transform group-hover/btn:translate-x-1 transition-transform duration-200" />
             </a>
 
-            <button
+            <a
               id="cta-btn-download-specs"
+              href="#resources"
               className="group/btn px-8 py-3 border border-[#b0741a] hover:bg-[#b0741a]/5 text-[#3d3225] hover:text-[#b0741a] rounded-lg font-sans font-semibold text-xs md:text-sm tracking-widest uppercase transition-all duration-300 active:scale-98 flex items-center justify-center space-x-2 cursor-pointer"
             >
               <span>DOWNLOAD SPECIFICATION</span>
               <ChevronRight size={16} className="text-[#b0741a] transform group-hover/btn:translate-x-1 transition-transform duration-200" strokeWidth={2.5} />
-            </button>
+            </a>
           </motion.div>
 
         </div>

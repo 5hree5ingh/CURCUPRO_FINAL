@@ -163,14 +163,17 @@ export default function ProductRangeSection() {
 
                 {/* CTA link */}
                 <div className="mt-auto">
-                  <span className="inline-flex items-center gap-2 text-[#b0741a] text-sm font-semibold font-sans tracking-wide group-hover:text-[#d08f30] transition-colors duration-300 cursor-pointer">
-                    View details
+                  <a
+                    href={`#contact`}
+                    className="inline-flex items-center gap-2 text-[#b0741a] text-sm font-semibold font-sans tracking-wide group-hover:text-[#d08f30] transition-colors duration-300 cursor-pointer"
+                  >
+                    Request sample
                     <ChevronRight
                       size={14}
                       strokeWidth={2.5}
                       className="transform group-hover:translate-x-1 transition-transform duration-300"
                     />
-                  </span>
+                  </a>
                 </div>
               </div>
             </motion.div>

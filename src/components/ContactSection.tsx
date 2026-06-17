@@ -92,6 +92,9 @@ export default function ContactSection() {
             <p className="font-sans text-[13px] sm:text-[14px] text-[#f4ebd9]/35 mt-4 max-w-[460px] mx-auto leading-relaxed">
               Evaluate our curcumin quality firsthand before you commit.
             </p>
+            <p className="font-sans text-[11px] sm:text-[12px] text-[#d0a34e]/60 mt-2 max-w-[460px] mx-auto leading-relaxed tracking-wide">
+              ✦ Free 50g evaluation sample — ships within 3 business days
+            </p>
           </motion.div>
 
           {/* ── Contact Info Row ── */}
@@ -254,6 +257,18 @@ export default function ContactSection() {
                 {error && (
                   <p className="mt-4 font-sans text-[12px] text-red-400/80 text-center">{error}</p>
                 )}
+              </div>
+
+              {/* Trust indicators */}
+              <div className="flex items-center justify-center gap-4 mt-5">
+                {["No commitment", "Free shipping", "COA included"].map((t) => (
+                  <span key={t} className="flex items-center gap-1.5 font-sans text-[9px] sm:text-[10px] tracking-wider uppercase text-[#f4ebd9]/20">
+                    <svg viewBox="0 0 16 16" className="w-3 h-3 text-[#d0a34e]/40" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="m4 8 3 3 5-5" />
+                    </svg>
+                    {t}
+                  </span>
+                ))}
               </div>
             </motion.form>
           )}
