@@ -280,7 +280,7 @@ export default function ContactSection() {
               </div>
 
               {/* Nav */}
-              <div className="flex items-center justify-center gap-4 sm:gap-5">
+              <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 sm:gap-x-6 md:gap-x-7">
                 {[
                   { label: "Home", href: "#hero-root-container" },
                   { label: "Why Synthetic", href: "#about" },
