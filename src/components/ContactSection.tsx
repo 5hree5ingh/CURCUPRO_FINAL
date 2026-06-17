@@ -280,12 +280,14 @@ export default function ContactSection() {
               </div>
 
               {/* Nav */}
-              <div className="flex items-center justify-center gap-7">
+              <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
                 {[
                   { label: "Home", href: "#hero-root-container" },
+                  { label: "Why Synthetic", href: "#about" },
                   { label: "Products", href: "#product-range" },
                   { label: "Applications", href: "#applications" },
                   { label: "Resources", href: "#resources" },
+                  { label: "Contact", href: "#contact" },
                 ].map((link) => (
                   <a key={link.label} href={link.href}
                     className="font-sans text-[10px] tracking-[0.16em] uppercase text-[#f4ebd9]/20 hover:text-[#d0a34e] transition-colors duration-300 font-medium"
