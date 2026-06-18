@@ -49,7 +49,7 @@ export default function ProductRangeSection() {
     <section
       id="product-range"
       ref={sectionRef}
-      className="relative w-full min-h-screen lg:h-screen lg:max-h-screen bg-[#1a1105] text-[#f4ebd9] font-sans overflow-visible py-10 lg:py-0 flex flex-col justify-center"
+      className="relative w-full min-h-screen bg-[#1a1105] text-[#f4ebd9] font-sans overflow-visible py-16 lg:py-20 flex flex-col justify-center"
     >
       {/* Ambient glows */}
       <div className="absolute top-[15%] left-[5%] w-[500px] h-[500px] bg-[#b0741a]/5 rounded-full blur-[180px] pointer-events-none z-0" />

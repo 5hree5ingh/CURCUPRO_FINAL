@@ -218,7 +218,7 @@ export default function ResourcesSection() {
     <section
       id="resources"
       ref={sectionRef}
-      className="relative w-full min-h-screen lg:h-screen lg:max-h-screen font-sans overflow-hidden py-10 lg:py-0 flex flex-col justify-center"
+      className="relative w-full min-h-screen font-sans overflow-hidden py-16 lg:py-20 flex flex-col justify-center"
       style={{ background: '#f4ebd9' }}
     >
       {/* Warm ambient glows */}

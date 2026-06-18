@@ -70,7 +70,7 @@ export default function WhySyntheticSection() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative w-full min-h-screen lg:h-screen lg:max-h-screen bg-[#f4ebd9] text-[#1a1105] font-sans overflow-visible py-10 lg:py-0 flex flex-col justify-center"
+      className="relative w-full min-h-screen bg-[#f4ebd9] text-[#1a1105] font-sans overflow-visible py-16 lg:py-20 flex flex-col justify-center"
     >
       {/* Subtle ambient glows */}
       <div className="absolute top-[10%] right-[15%] w-[600px] h-[600px] bg-[#b0741a]/4 rounded-full blur-[160px] pointer-events-none z-0" />

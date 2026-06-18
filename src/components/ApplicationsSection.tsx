@@ -7,7 +7,7 @@ export default function ApplicationsSection() {
   return (
     <section
       id="applications"
-      className="relative w-full overflow-hidden min-h-screen lg:h-screen lg:max-h-screen flex flex-col justify-center py-10 lg:py-0"
+      className="relative w-full overflow-hidden min-h-screen flex flex-col justify-center py-16 lg:py-20"
       style={{
         background: `#f4ebd9`
       }}
