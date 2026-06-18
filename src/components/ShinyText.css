@@ -24,15 +24,24 @@
   }
 }
 
-/* ── Disable shiny text animation on mobile, low-end devices & reduced-motion ── */
+/* ── Disable shiny text on mobile, low-end devices & reduced-motion ──
+     Completely remove the gradient so text is solid & readable */
 .low-end-device .shiny-text {
   animation: none !important;
-  background-position: 50% center !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: currentColor !important;
+  color: inherit !important;
 }
 
 @media (max-width: 768px), (prefers-reduced-motion: reduce) {
   .shiny-text {
     animation: none !important;
-    background-position: 50% center !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: currentColor !important;
+    color: inherit !important;
   }
 }
