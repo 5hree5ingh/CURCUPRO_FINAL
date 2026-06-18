@@ -1,6 +1,6 @@
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
 const SHEET_ID     = "1v-bJEaX57keHkvxz8u4Leu-eHKEpyqoiOkTa8oAA8rQ";
-const NOTIFY_EMAIL = "aurvaaywellness@gmail.com";
+const NOTIFY_EMAIL = "info@aurvaay.com";
 // ──────────────────────────────────────────────────────────────────────────────
 
 function doPost(e) {

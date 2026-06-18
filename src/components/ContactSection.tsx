@@ -49,7 +49,7 @@ export default function ContactSection() {
         setError("Something went wrong. Please email us directly.");
       }
     } catch {
-      setError("Network error. Please email us directly at aurvaaywellness@gmail.com");
+      setError("Network error. Please email us directly at info@aurvaay.com");
     } finally {
       setSubmitting(false);
     }
@@ -102,13 +102,13 @@ export default function ContactSection() {
             className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-0 mb-14 lg:mb-18 max-w-[750px] mx-auto"
           >
             {/* Email */}
-            <a href="mailto:aurvaaywellness@gmail.com" className="group flex items-center gap-2.5 sm:px-6 hover:opacity-100 transition-opacity duration-300">
+            <a href="mailto:info@aurvaay.com" className="group flex items-center gap-2.5 sm:px-6 hover:opacity-100 transition-opacity duration-300">
               <svg viewBox="0 0 24 24" className="w-4 h-4 text-[#d0a34e]/50 group-hover:text-[#d0a34e] transition-colors duration-300 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="4" width="20" height="16" rx="2" />
                 <polyline points="22,6 12,13 2,6" />
               </svg>
               <span className="font-sans text-[13px] text-[#f4ebd9]/50 group-hover:text-[#f4ebd9]/80 transition-colors duration-300 tracking-tight">
-                aurvaaywellness@gmail.com
+                info@aurvaay.com
               </span>
             </a>
 
@@ -135,7 +135,7 @@ export default function ContactSection() {
                 <circle cx="12" cy="10" r="3" />
               </svg>
               <span className="font-sans text-[13px] text-[#f4ebd9]/50 tracking-tight">
-                Haridwar, Uttarakhand, India
+                India
               </span>
             </div>
           </motion.div>

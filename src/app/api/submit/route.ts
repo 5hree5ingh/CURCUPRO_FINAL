@@ -30,7 +30,7 @@ async function sendEmail(name: string, email: string, phone: string, grade: stri
 
   await transporter.sendMail({
     from: `"Curcumin Solutions Website" <${process.env.GMAIL_USER}>`,
-    to: "aurvaaywellness@gmail.com",
+    to: "info@aurvaay.com",
     subject: `New Sample Request — ${name}`,
     html: `
       <div style="font-family:sans-serif;max-width:520px;margin:0 auto;background:#fff;border-radius:10px;overflow:hidden;border:1px solid #e5dcd0;">
