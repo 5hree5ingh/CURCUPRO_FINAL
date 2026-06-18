@@ -39,8 +39,8 @@ function SplashCursor({
       return;
     }
 
-    // Check 3: Low device memory (≤4 GB)
-    if (navigator.deviceMemory && navigator.deviceMemory <= 4) {
+    // Check 3: Low device memory (≤2 GB) — browser buckets this for privacy, so only catch truly low-end
+    if (navigator.deviceMemory && navigator.deviceMemory <= 2) {
       console.log(`[SplashCursor] Disabled: Low device memory (${navigator.deviceMemory} GB).`);
       setIsDisabled(true);
       return;
