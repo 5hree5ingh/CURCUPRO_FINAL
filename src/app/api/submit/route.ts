@@ -6,6 +6,8 @@ import path from "path";
 const SPREADSHEET_ID = "1v-bJEaX57keHkvxz8u4Leu-eHKEpyqoiOkTa8oAA8rQ";
 const SERVICE_ACCOUNT_FILE = path.join(process.cwd(), "service-account.json");
 
+// ── Cached singletons (persist across requests in the same server process) ────
+
 // Cache auth so we don't re-read the JSON file on every request
 let cachedAuth: InstanceType<typeof google.auth.GoogleAuth> | null = null;
 function getAuth() {
@@ -18,17 +20,31 @@ function getAuth() {
   return cachedAuth;
 }
 
-// ── Email task ────────────────────────────────────────────────────────────────
-async function sendEmail(name: string, email: string, phone: string, grade: string, message: string, timestamp: string) {
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASS,
-    },
-  });
+// Cache SMTP transporter — avoids TLS handshake on every request (~1-2s saved)
+let cachedTransporter: nodemailer.Transporter | null = null;
+function getTransporter() {
+  if (!cachedTransporter) {
+    cachedTransporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
+      },
+      pool: true,        // reuse connections
+      maxConnections: 3,  // up to 3 parallel sends
+    });
+  }
+  return cachedTransporter;
+}
 
-  await transporter.sendMail({
+// Cache header check — only verify once per server lifecycle
+let headerVerified = false;
+
+// ── Email task — BOTH emails sent in PARALLEL ─────────────────────────────────
+async function sendEmail(name: string, email: string, phone: string, grade: string, message: string, timestamp: string) {
+  const transporter = getTransporter();
+
+  const notificationMail = transporter.sendMail({
     from: `"Curcumin Solutions Website" <${process.env.GMAIL_USER}>`,
     to: "info@aurvaay.com",
     subject: `New Sample Request — ${name}`,
@@ -59,8 +75,7 @@ async function sendEmail(name: string, email: string, phone: string, grade: stri
     `,
   });
 
-  // Auto-reply to the lead
-  await transporter.sendMail({
+  const autoReplyMail = transporter.sendMail({
     from: `"Curcumin Solutions" <${process.env.GMAIL_USER}>`,
     to: email,
     subject: `Thanks ${name} — We've received your sample request`,
@@ -93,95 +108,102 @@ async function sendEmail(name: string, email: string, phone: string, grade: stri
       </div>
     `,
   });
+
+  // Send BOTH emails in parallel — saves ~2-3s
+  await Promise.all([notificationMail, autoReplyMail]);
 }
 
 // ── Sheets task ───────────────────────────────────────────────────────────────
 async function writeToSheets(name: string, email: string, phone: string, grade: string, message: string, timestamp: string) {
   const sheets = google.sheets({ version: "v4", auth: getAuth() });
 
-  // Check if header row exists
-  const headerCheck = await sheets.spreadsheets.values.get({
-    spreadsheetId: SPREADSHEET_ID,
-    range: "Sheet1!A1:F1",
-  });
-
-  const hasHeader = headerCheck.data.values?.length
-    && headerCheck.data.values[0][0] === "Timestamp";
-
-  if (!hasHeader) {
-    // Clear ALL content + formatting, write header, style, set widths — in ONE batch
-    await sheets.spreadsheets.values.clear({
+  // Only check/create header once per server lifecycle — saves ~1-2s on repeat requests
+  if (!headerVerified) {
+    const headerCheck = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
-      range: "Sheet1",
+      range: "Sheet1!A1:F1",
     });
 
-    // Column widths: Timestamp=200, Name=180, Email=280, Phone=180, Grade=320, Requirements=400
-    const columnWidths = [200, 180, 280, 180, 320, 400];
+    const hasHeader = headerCheck.data.values?.length
+      && headerCheck.data.values[0][0] === "Timestamp";
 
-    // Write header + format + set widths all in parallel
-    await Promise.all([
-      sheets.spreadsheets.values.update({
+    if (!hasHeader) {
+      // Clear ALL content + formatting, write header, style, set widths — in ONE batch
+      await sheets.spreadsheets.values.clear({
         spreadsheetId: SPREADSHEET_ID,
-        range: "Sheet1!A1:F1",
-        valueInputOption: "RAW",
-        requestBody: {
-          values: [["Timestamp", "Name", "Email", "Phone", "Grade", "Requirements"]],
-        },
-      }),
-      sheets.spreadsheets.batchUpdate({
-        spreadsheetId: SPREADSHEET_ID,
-        requestBody: {
-          requests: [
-            // Clear ALL formatting (removes old brown background)
-            {
-              repeatCell: {
-                range: { sheetId: 0 },
-                cell: {
-                  userEnteredFormat: {
-                    backgroundColor: { red: 1, green: 1, blue: 1 },
-                  },
-                },
-                fields: "userEnteredFormat.backgroundColor",
-              },
-            },
-            // Golden header: bold white text on golden background
-            {
-              repeatCell: {
-                range: { sheetId: 0, startRowIndex: 0, endRowIndex: 1, startColumnIndex: 0, endColumnIndex: 6 },
-                cell: {
-                  userEnteredFormat: {
-                    backgroundColor: { red: 0.69, green: 0.455, blue: 0.102 },
-                    textFormat: {
-                      bold: true,
-                      fontSize: 11,
-                      foregroundColor: { red: 1, green: 1, blue: 1 },
+        range: "Sheet1",
+      });
+
+      // Column widths: Timestamp=200, Name=180, Email=280, Phone=180, Grade=320, Requirements=400
+      const columnWidths = [200, 180, 280, 180, 320, 400];
+
+      // Write header + format + set widths all in parallel
+      await Promise.all([
+        sheets.spreadsheets.values.update({
+          spreadsheetId: SPREADSHEET_ID,
+          range: "Sheet1!A1:F1",
+          valueInputOption: "RAW",
+          requestBody: {
+            values: [["Timestamp", "Name", "Email", "Phone", "Grade", "Requirements"]],
+          },
+        }),
+        sheets.spreadsheets.batchUpdate({
+          spreadsheetId: SPREADSHEET_ID,
+          requestBody: {
+            requests: [
+              // Clear ALL formatting (removes old brown background)
+              {
+                repeatCell: {
+                  range: { sheetId: 0 },
+                  cell: {
+                    userEnteredFormat: {
+                      backgroundColor: { red: 1, green: 1, blue: 1 },
                     },
-                    horizontalAlignment: "CENTER",
-                    verticalAlignment: "MIDDLE",
                   },
+                  fields: "userEnteredFormat.backgroundColor",
                 },
-                fields: "userEnteredFormat(backgroundColor,textFormat,horizontalAlignment,verticalAlignment)",
               },
-            },
-            // Set fixed column widths
-            ...columnWidths.map((px, i) => ({
-              updateDimensionProperties: {
-                range: { sheetId: 0, dimension: "COLUMNS", startIndex: i, endIndex: i + 1 },
-                properties: { pixelSize: px },
-                fields: "pixelSize",
+              // Golden header: bold white text on golden background
+              {
+                repeatCell: {
+                  range: { sheetId: 0, startRowIndex: 0, endRowIndex: 1, startColumnIndex: 0, endColumnIndex: 6 },
+                  cell: {
+                    userEnteredFormat: {
+                      backgroundColor: { red: 0.69, green: 0.455, blue: 0.102 },
+                      textFormat: {
+                        bold: true,
+                        fontSize: 11,
+                        foregroundColor: { red: 1, green: 1, blue: 1 },
+                      },
+                      horizontalAlignment: "CENTER",
+                      verticalAlignment: "MIDDLE",
+                    },
+                  },
+                  fields: "userEnteredFormat(backgroundColor,textFormat,horizontalAlignment,verticalAlignment)",
+                },
               },
-            })),
-            // Freeze the header row
-            {
-              updateSheetProperties: {
-                properties: { sheetId: 0, gridProperties: { frozenRowCount: 1 } },
-                fields: "gridProperties.frozenRowCount",
+              // Set fixed column widths
+              ...columnWidths.map((px, i) => ({
+                updateDimensionProperties: {
+                  range: { sheetId: 0, dimension: "COLUMNS", startIndex: i, endIndex: i + 1 },
+                  properties: { pixelSize: px },
+                  fields: "pixelSize",
+                },
+              })),
+              // Freeze the header row
+              {
+                updateSheetProperties: {
+                  properties: { sheetId: 0, gridProperties: { frozenRowCount: 1 } },
+                  fields: "gridProperties.frozenRowCount",
+                },
               },
-            },
-          ],
-        },
-      }),
-    ]);
+            ],
+          },
+        }),
+      ]);
+    }
+
+    headerVerified = true;
   }
 
   // Append the new row (no extra formatting — white is the default)
