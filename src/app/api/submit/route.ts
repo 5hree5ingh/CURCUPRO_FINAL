@@ -46,8 +46,13 @@ async function sendEmail(name: string, email: string, phone: string, grade: stri
 
   const notificationMail = transporter.sendMail({
     from: `"Curcumin Solutions Website" <${process.env.GMAIL_USER}>`,
-    to: "info@aurvaay.com",
+    to: `info@aurvaay.com, ${process.env.GMAIL_USER}`,
+    replyTo: email,
     subject: `New Sample Request — ${name}`,
+    headers: {
+      'X-Priority': '1',
+      'X-Mailer': 'Curcumin Solutions Website',
+    },
     html: `
       <div style="font-family:sans-serif;max-width:520px;margin:0 auto;background:#fff;border-radius:10px;overflow:hidden;border:1px solid #e5dcd0;">
         <div style="background:linear-gradient(135deg,#b0741a,#8c540c);padding:24px 32px;">
@@ -78,17 +83,38 @@ async function sendEmail(name: string, email: string, phone: string, grade: stri
   const autoReplyMail = transporter.sendMail({
     from: `"Curcumin Solutions" <${process.env.GMAIL_USER}>`,
     to: email,
-    subject: `Thanks ${name} — We've received your sample request`,
+    replyTo: `info@aurvaay.com`,
+    subject: `Hi ${name}, we received your request - Curcumin Solutions`,
+    headers: {
+      'X-Mailer': 'Curcumin Solutions Website',
+    },
+    // Plain text version — critical to avoid spam filters
+    text: `Hi ${name},
+
+Thank you for your interest in our synthetic curcumin. We have received your request for ${grade}.
+
+Our team will review your requirements and get back to you within 24 hours with sample details, pricing, and shipping information.
+
+Your Request Summary:
+- Grade: ${grade}
+- Requirements: ${message || "N/A"}
+
+Meanwhile, feel free to reach us at +91 90451 01186 or reply to this email.
+
+Best regards,
+Curcumin Solutions
+info@aurvaay.com
+www.curcumex.com`,
     html: `
       <div style="font-family:sans-serif;max-width:520px;margin:0 auto;background:#fff;border-radius:10px;overflow:hidden;border:1px solid #e5dcd0;">
         <div style="background:linear-gradient(135deg,#b0741a,#8c540c);padding:24px 32px;">
-          <h2 style="color:#fff;margin:0;font-size:20px;letter-spacing:0.02em;">Sample Request Received ✓</h2>
-          <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:12px;">Curcumin Solutions — ${timestamp}</p>
+          <h2 style="color:#fff;margin:0;font-size:20px;letter-spacing:0.02em;">Sample Request Received</h2>
+          <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:12px;">Curcumin Solutions - ${timestamp}</p>
         </div>
         <div style="padding:28px 32px;">
           <p style="color:#1a1105;font-size:15px;line-height:1.7;margin:0 0 16px;">Hi ${name},</p>
           <p style="color:#493c2c;font-size:14px;line-height:1.7;margin:0 0 16px;">
-            Thank you for your interest in our synthetic curcumin. We've received your request for <strong style="color:#b0741a;">${grade}</strong>.
+            Thank you for your interest in our synthetic curcumin. We have received your request for <strong style="color:#b0741a;">${grade}</strong>.
           </p>
           <p style="color:#493c2c;font-size:14px;line-height:1.7;margin:0 0 20px;">
             Our team will review your requirements and get back to you within <strong>24 hours</strong> with sample details, pricing, and shipping information.
@@ -96,14 +122,14 @@ async function sendEmail(name: string, email: string, phone: string, grade: stri
           <div style="background:#faf7f2;border:1px solid #f0ebe0;border-radius:8px;padding:16px 20px;margin-bottom:16px;">
             <p style="color:#888;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;margin:0 0 6px;">Your Request Summary</p>
             <p style="color:#1a1105;font-size:13px;margin:2px 0;"><strong>Grade:</strong> ${grade}</p>
-            <p style="color:#1a1105;font-size:13px;margin:2px 0;"><strong>Requirements:</strong> ${message || "—"}</p>
+            <p style="color:#1a1105;font-size:13px;margin:2px 0;"><strong>Requirements:</strong> ${message || "N/A"}</p>
           </div>
           <p style="color:#493c2c;font-size:13px;line-height:1.6;margin:0;">
             Meanwhile, feel free to reach us at <a href="tel:+919045101186" style="color:#b0741a;text-decoration:none;">+91 90451 01186</a> or reply to this email.
           </p>
         </div>
         <div style="background:#faf7f2;padding:16px 32px;text-align:center;border-top:1px solid #f0ebe0;">
-          <a href="https://www.curcumex.com" style="color:#b0741a;font-size:12px;text-decoration:none;">Visit curcumex.com →</a>
+          <a href="https://www.curcumex.com" style="color:#b0741a;font-size:12px;text-decoration:none;">Visit curcumex.com</a>
         </div>
       </div>
     `,

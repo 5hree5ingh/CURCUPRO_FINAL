@@ -311,7 +311,7 @@ export default function ContactSection() {
           <div className="border-t border-[#f4ebd9]/[0.04]">
             <div className="w-full max-w-[1200px] mx-auto px-5 sm:px-8 md:px-16 lg:px-24 py-5 flex items-center justify-center">
               <span className="font-sans text-[10px] text-[#f4ebd9]/45 tracking-wider">
-                © {new Date().getFullYear()} Aurvaay Wellness . All rights reserved.
+                © @2026 A brand of Aurvaay Wellness Private Limited. All Rights Reserved.
               </span>
             </div>
           </div>

@@ -172,14 +172,11 @@ function FeaturedDocCard({ doc, index, onDownloadClick }: { doc: typeof featured
         {/* Document preview illustration */}
         <DocPreview lineCount={doc.docLines} />
 
-        {/* Title + page badge */}
-        <div className="flex items-center gap-2 mb-1.5">
+        {/* Title */}
+        <div className="mb-1.5">
           <h3 className="font-serif text-[18px] sm:text-[20px] font-medium text-[#1a1105] tracking-tight leading-tight">
             {doc.title}
           </h3>
-          <span className="text-[8px] font-sans font-bold tracking-[0.15em] uppercase text-[#b0741a]/45 border border-[#b0741a]/15 px-1.5 py-[2px] rounded-full">
-            {doc.pages}
-          </span>
         </div>
 
         {/* Description */}
@@ -187,16 +184,12 @@ function FeaturedDocCard({ doc, index, onDownloadClick }: { doc: typeof featured
           {doc.description}
         </p>
 
-        {/* Footer */}
-        <div className="flex items-center justify-between pt-3 border-t border-[#b0741a]/[0.08]">
+        <div className="flex items-center pt-3 border-t border-[#b0741a]/[0.08]">
           <span className="inline-flex items-center gap-2 font-sans text-[12px] sm:text-[13px] font-semibold text-[#b0741a] tracking-wide group-hover:text-[#8c540c] transition-colors duration-300">
             {doc.cta}
             <svg viewBox="0 0 16 16" className="w-3.5 h-3.5 transform group-hover:translate-y-0.5 transition-transform duration-300" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M8 2v9.5M4 8.5l4 4 4-4M3 14h10" />
             </svg>
-          </span>
-          <span className="font-sans text-[9px] text-[#5c4a32]/25 tracking-wider uppercase font-medium">
-            {doc.meta}
           </span>
         </div>
       </div>
