@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
 import ShinyText from "./ShinyText";
@@ -76,14 +77,28 @@ export default function HeroSection() {
       className="min-h-dvh w-full max-w-full bg-[#f4ebd9] text-[#1a1105] font-sans flex flex-col justify-start relative select-none pt-14 md:pt-16"
     >
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <picture>
-          <source media="(min-width: 768px)" srcSet="/image.png" />
-          <img
+        {/* Desktop hero image */}
+        <div className="hidden md:block relative w-full h-full">
+          <Image
+            src="/image.png"
+            alt="Curcupure product background"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-right"
+          />
+        </div>
+        {/* Mobile hero image */}
+        <div className="block md:hidden relative w-full h-full">
+          <Image
             src="/hero-mobile.png"
             alt="Curcupure product background"
-            className="w-full h-full object-cover object-center md:object-right"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
           />
-        </picture>
+        </div>
         {/* Gradient overlay for text readability - only on desktop */}
         <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-[#f4ebd9] from-[30%] via-[#f4ebd9]/70 via-[42%] to-transparent to-[55%]" />
         {/* Subtle mobile overlay */}
@@ -91,7 +106,7 @@ export default function HeroSection() {
       </div>
 
       {/* Ambient warm glow behind text */}
-      <div className="absolute top-[20%] left-[8%] w-[500px] h-[500px] bg-[#b0741a]/6 rounded-full blur-[130px] pointer-events-none z-0" />
+      <div className="absolute top-[20%] left-[8%] w-[500px] h-[500px] bg-[#b0741a]/6 rounded-full blur-[60px] pointer-events-none z-0" />
 
       {/* Header / Navigation bar — STICKY */}
       <header
@@ -109,9 +124,12 @@ export default function HeroSection() {
       >
         <div id="brand-logo-group" className="flex items-center">
           <a href="#hero-root-container" className="block">
-            <img
+            <Image
               src="/curcumex_logo.png"
               alt="Curcumex"
+              width={160}
+              height={40}
+              priority
               className="h-8 md:h-10 w-auto"
             />
           </a>

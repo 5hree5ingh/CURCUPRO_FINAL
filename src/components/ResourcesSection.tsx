@@ -222,8 +222,8 @@ export default function ResourcesSection() {
       style={{ background: '#f4ebd9' }}
     >
       {/* Warm ambient glows */}
-      <div className="absolute top-[10%] right-[15%] w-[600px] h-[600px] bg-[#b0741a]/4 rounded-full blur-[160px] pointer-events-none z-0" />
-      <div className="absolute bottom-[5%] left-[10%] w-[400px] h-[400px] bg-[#d08f30]/3 rounded-full blur-[140px] pointer-events-none z-0" />
+      <div className="absolute top-[10%] right-[15%] w-[600px] h-[600px] bg-[#b0741a]/4 rounded-full blur-[70px] pointer-events-none z-0" />
+      <div className="absolute bottom-[5%] left-[10%] w-[400px] h-[400px] bg-[#d08f30]/3 rounded-full blur-[60px] pointer-events-none z-0" />
       <div className="absolute top-[20%] left-1/2 w-[800px] h-[400px] pointer-events-none z-0"
         style={{
           background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.5) 0%, transparent 70%)',

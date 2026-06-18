@@ -73,8 +73,8 @@ export default function WhySyntheticSection() {
       className="relative w-full min-h-screen bg-[#f4ebd9] text-[#1a1105] font-sans overflow-visible py-16 lg:py-20 flex flex-col justify-center"
     >
       {/* Subtle ambient glows */}
-      <div className="absolute top-[10%] right-[15%] w-[600px] h-[600px] bg-[#b0741a]/4 rounded-full blur-[160px] pointer-events-none z-0" />
-      <div className="absolute bottom-[5%] left-[10%] w-[400px] h-[400px] bg-[#d08f30]/3 rounded-full blur-[140px] pointer-events-none z-0" />
+      <div className="absolute top-[10%] right-[15%] w-[600px] h-[600px] bg-[#b0741a]/4 rounded-full blur-[70px] pointer-events-none z-0" />
+      <div className="absolute bottom-[5%] left-[10%] w-[400px] h-[400px] bg-[#d08f30]/3 rounded-full blur-[60px] pointer-events-none z-0" />
 
       {/* Content container */}
       <div className="relative z-10 w-full max-w-[1200px] mx-auto px-4 sm:px-8 md:px-16 lg:px-24 flex flex-col justify-center">

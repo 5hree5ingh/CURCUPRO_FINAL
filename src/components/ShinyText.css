@@ -1,3 +1,25 @@
 .shiny-text {
   display: inline-block;
+  animation: shiny-text-sweep var(--shine-direction, normal) infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.shiny-text--disabled {
+  animation-play-state: paused;
+}
+
+.shiny-text--pause-hover:hover {
+  animation-play-state: paused;
+}
+
+@keyframes shiny-text-sweep {
+  0% {
+    background-position: 150% center;
+  }
+  55% {
+    background-position: -50% center;
+  }
+  100% {
+    background-position: -50% center;
+  }
 }

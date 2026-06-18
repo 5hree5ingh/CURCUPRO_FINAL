@@ -52,8 +52,8 @@ export default function ProductRangeSection() {
       className="relative w-full min-h-screen bg-[#1a1105] text-[#f4ebd9] font-sans overflow-visible py-16 lg:py-20 flex flex-col justify-center"
     >
       {/* Ambient glows */}
-      <div className="absolute top-[15%] left-[5%] w-[500px] h-[500px] bg-[#b0741a]/5 rounded-full blur-[180px] pointer-events-none z-0" />
-      <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] bg-[#d08f30]/4 rounded-full blur-[160px] pointer-events-none z-0" />
+      <div className="absolute top-[15%] left-[5%] w-[500px] h-[500px] bg-[#b0741a]/5 rounded-full blur-[80px] pointer-events-none z-0" />
+      <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] bg-[#d08f30]/4 rounded-full blur-[70px] pointer-events-none z-0" />
 
       {/* Subtle grain texture overlay */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0"

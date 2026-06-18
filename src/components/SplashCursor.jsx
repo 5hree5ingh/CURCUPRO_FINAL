@@ -692,11 +692,8 @@ function SplashCursor({
 
     function updateFrame() {
       if (!isActive) return;
-      // Skip rendering when idle (no mouse movement for 2s)
-      if (isIdleRef.current) {
-        animationFrameId.current = requestAnimationFrame(updateFrame);
-        return;
-      }
+      // When idle, the loop is fully stopped (no rAF scheduled)
+      if (isIdleRef.current) return;
       const dt = calcDeltaTime();
       if (resizeCanvas()) initFramebuffers();
       updateColors(dt);
@@ -706,12 +703,19 @@ function SplashCursor({
       animationFrameId.current = requestAnimationFrame(updateFrame);
     }
 
-    // Idle detection — stop heavy GPU work when mouse isn't moving
+    // Idle detection — fully stop the rAF loop when mouse is inactive
     function resetIdleTimer() {
+      const wasIdle = isIdleRef.current;
       isIdleRef.current = false;
+      // If we were idle, restart the render loop
+      if (wasIdle) {
+        lastUpdateTime = Date.now(); // Reset delta time to avoid huge jump
+        animationFrameId.current = requestAnimationFrame(updateFrame);
+      }
       if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
       idleTimerRef.current = setTimeout(() => {
         isIdleRef.current = true;
+        // The loop will stop on its own next frame (updateFrame checks isIdleRef)
       }, 2000);
     }
 
