@@ -209,7 +209,12 @@ section {
   }
 }
 
-/* ── Disable badge shine on mobile & reduced-motion ── */
+/* ── Disable badge shine on mobile, low-end devices & reduced-motion ── */
+.low-end-device .badge-shine::before {
+  animation: none !important;
+  background: none !important;
+}
+
 @media (max-width: 768px), (prefers-reduced-motion: reduce) {
   .badge-shine::before {
     animation: none !important;

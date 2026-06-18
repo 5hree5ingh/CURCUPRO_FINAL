@@ -40,3 +40,22 @@
 @keyframes star-border-spin {
   to { --star-angle: 360deg; }
 }
+
+/* ── Disable star border animation on mobile, low-end devices & reduced-motion ── */
+.low-end-device .star-border-line {
+  animation: none !important;
+  background: transparent !important;
+  border: 1px solid var(--star-color, #d08f30) !important;
+  -webkit-mask: none !important;
+  mask: none !important;
+}
+
+@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+  .star-border-line {
+    animation: none !important;
+    background: transparent !important;
+    border: 1px solid var(--star-color, #d08f30) !important;
+    -webkit-mask: none !important;
+    mask: none !important;
+  }
+}

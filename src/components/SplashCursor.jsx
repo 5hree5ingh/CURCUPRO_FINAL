@@ -29,6 +29,7 @@ function SplashCursor({
     if (isMobileUA || isSmallScreen) {
       console.log("[SplashCursor] Disabled: Mobile device or small screen detected.");
       setIsDisabled(true);
+      document.documentElement.classList.add('low-end-device');
       return;
     }
 
@@ -36,6 +37,7 @@ function SplashCursor({
     if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) {
       console.log(`[SplashCursor] Disabled: Low CPU core count (${navigator.hardwareConcurrency} cores).`);
       setIsDisabled(true);
+      document.documentElement.classList.add('low-end-device');
       return;
     }
 
@@ -43,6 +45,7 @@ function SplashCursor({
     if (navigator.deviceMemory && navigator.deviceMemory <= 2) {
       console.log(`[SplashCursor] Disabled: Low device memory (${navigator.deviceMemory} GB).`);
       setIsDisabled(true);
+      document.documentElement.classList.add('low-end-device');
       return;
     }
 
@@ -70,6 +73,7 @@ function SplashCursor({
           if (lowEndGPUs.some(gpu => renderer.includes(gpu))) {
             console.log(`[SplashCursor] Disabled: Low-end GPU detected (${renderer}).`);
             setIsDisabled(true);
+            document.documentElement.classList.add('low-end-device');
             return;
           }
         }
@@ -83,11 +87,13 @@ function SplashCursor({
     if (reducedMotion.matches) {
       console.log("[SplashCursor] Disabled: prefers-reduced-motion is enabled.");
       setIsDisabled(true);
+      document.documentElement.classList.add('low-end-device');
       return;
     }
 
     console.log(`[SplashCursor] Enabled! Hardware is capable. (Cores: ${navigator.hardwareConcurrency}, GPU: ${renderer})`);
     setIsDisabled(false);
+    document.documentElement.classList.remove('low-end-device');
   }, []);
   const canvasRef = useRef(null);
   const animationFrameId = useRef(null);

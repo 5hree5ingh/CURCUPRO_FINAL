@@ -336,15 +336,54 @@ const BentoCardGrid = ({ children, gridRef }) => (
   </div>
 );
 
-const useMobileDetection = () => {
-  const [isMobile, setIsMobile] = useState(false);
+const useLowEndDetection = () => {
+  const [isLowEnd, setIsLowEnd] = useState(false);
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    const checkLowEnd = () => {
+      const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isSmallScreen = window.innerWidth <= MOBILE_BREAKPOINT;
+      if (isMobileUA || isSmallScreen) {
+        setIsLowEnd(true);
+        return;
+      }
+      
+      const lowCores = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+      const lowMem = navigator.deviceMemory && navigator.deviceMemory <= 2;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      
+      let weakGPU = false;
+      try {
+        const testCanvas = document.createElement('canvas');
+        const gl = testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl');
+        if (gl) {
+          const debugExt = gl.getExtension('WEBGL_debug_renderer_info');
+          if (debugExt) {
+            const renderer = gl.getParameter(debugExt.UNMASKED_RENDERER_WEBGL).toLowerCase();
+            const lowEndGPUs = [
+              'intel hd graphics',
+              'intel(r) hd',
+              'mesa',
+              'swiftshader',
+              'llvmpipe',
+              'microsoft basic render',
+              'adreno 5',   // Adreno 5xx series (older mobile)
+              'adreno 4',   // Adreno 4xx series
+              'mali-g5',    // Older Mali
+              'mali-t',     // Older Mali
+            ];
+            weakGPU = lowEndGPUs.some(gpu => renderer.includes(gpu));
+          }
+        }
+      } catch (e) {}
+
+      setIsLowEnd(lowCores || lowMem || reducedMotion || weakGPU);
+    };
+
+    checkLowEnd();
+    window.addEventListener('resize', checkLowEnd);
+    return () => window.removeEventListener('resize', checkLowEnd);
   }, []);
-  return isMobile;
+  return isLowEnd;
 };
 
 const MagicBento = ({
@@ -361,8 +400,8 @@ const MagicBento = ({
   enableMagnetism = true
 }) => {
   const gridRef = useRef(null);
-  const isMobile = useMobileDetection();
-  const shouldDisableAnimations = disableAnimations || isMobile;
+  const isLowEnd = useLowEndDetection();
+  const shouldDisableAnimations = disableAnimations || isLowEnd;
 
   return (
     <>
