@@ -71,17 +71,7 @@ export default function ApplicationsSection() {
             Where <span className="text-[#bf801d] md:bg-gradient-to-r md:from-[#b0741a] md:via-[#d08f30] md:to-[#8c540c] md:bg-clip-text md:text-transparent italic">purity</span> meets purpose.
           </h2>
 
-          {/* Bottom Divider with botanical crest */}
-          <div className="flex items-center justify-center gap-5 mt-3">
-            <div className="w-16 h-[1px] bg-gradient-to-r from-transparent to-[#b0741a]/40"></div>
-            <svg viewBox="0 0 24 24" className="w-6 h-6 fill-none stroke-[#b0741a] stroke-[1.25] stroke-linecap-round stroke-linejoin-round">
-              <path d="M12 21v-7" className="stroke-[#b0741a]/40" />
-              <path d="M12 14c0-3.5-1.5-6 0-9.5 1.5 3.5 0 6 0 9.5z" fill="#b0741a" fillOpacity="0.15" />
-              <path d="M12 14c-2.25-1.25-4.5-0.75-5.5-3.75 2.25 0.5 4 2.25 5.5 3.75z" fill="#b0741a" fillOpacity="0.15" />
-              <path d="M12 14c2.25-1.25 4.5-0.75 5.5-3.75-2.25 0.5-4 2.25-5.5 3.75z" fill="#b0741a" fillOpacity="0.15" />
-            </svg>
-            <div className="w-16 h-[1px] bg-gradient-to-l from-transparent to-[#b0741a]/40"></div>
-          </div>
+
         </div>
 
         {/* MagicBento cards */}
