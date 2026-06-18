@@ -19,43 +19,45 @@ function SplashCursor({
   RAINBOW_MODE = true,
   COLOR = '#ff0000'
 }) {
-  // Skip entirely on mobile/touch devices AND low-end hardware
+  // Skip entirely on mobile devices AND low-end hardware
   const [isDisabled, setIsDisabled] = useState(false);
   useEffect(() => {
-    // Check 1: Mobile / touch device
-    const mq = window.matchMedia('(max-width: 768px), (pointer: coarse)');
-    if (mq.matches) {
+    const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isSmallScreen = window.innerWidth <= 768;
+    
+    // Check 1: Actual mobile/tablet device
+    if (isMobileUA || isSmallScreen) {
+      console.log("[SplashCursor] Disabled: Mobile device or small screen detected.");
       setIsDisabled(true);
-      const handler = (e) => setIsDisabled(e.matches);
-      mq.addEventListener('change', handler);
-      return () => mq.removeEventListener('change', handler);
+      return;
     }
 
     // Check 2: Low CPU core count (≤4 cores = likely low-end)
     if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) {
+      console.log(`[SplashCursor] Disabled: Low CPU core count (${navigator.hardwareConcurrency} cores).`);
       setIsDisabled(true);
       return;
     }
 
     // Check 3: Low device memory (≤4 GB)
     if (navigator.deviceMemory && navigator.deviceMemory <= 4) {
+      console.log(`[SplashCursor] Disabled: Low device memory (${navigator.deviceMemory} GB).`);
       setIsDisabled(true);
       return;
     }
 
     // Check 4: Integrated / weak GPU detection via WebGL renderer string
+    let renderer = 'unknown';
     try {
       const testCanvas = document.createElement('canvas');
       const gl = testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl');
       if (gl) {
         const debugExt = gl.getExtension('WEBGL_debug_renderer_info');
         if (debugExt) {
-          const renderer = gl.getParameter(debugExt.UNMASKED_RENDERER_WEBGL).toLowerCase();
+          renderer = gl.getParameter(debugExt.UNMASKED_RENDERER_WEBGL).toLowerCase();
           const lowEndGPUs = [
             'intel hd graphics',
-            'intel uhd graphics',
             'intel(r) hd',
-            'intel(r) uhd',
             'mesa',
             'swiftshader',
             'llvmpipe',
@@ -66,6 +68,7 @@ function SplashCursor({
             'mali-t',     // Older Mali
           ];
           if (lowEndGPUs.some(gpu => renderer.includes(gpu))) {
+            console.log(`[SplashCursor] Disabled: Low-end GPU detected (${renderer}).`);
             setIsDisabled(true);
             return;
           }
@@ -78,10 +81,12 @@ function SplashCursor({
     // Check 5: Prefer-reduced-motion accessibility setting
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (reducedMotion.matches) {
+      console.log("[SplashCursor] Disabled: prefers-reduced-motion is enabled.");
       setIsDisabled(true);
       return;
     }
 
+    console.log(`[SplashCursor] Enabled! Hardware is capable. (Cores: ${navigator.hardwareConcurrency}, GPU: ${renderer})`);
     setIsDisabled(false);
   }, []);
   const canvasRef = useRef(null);
