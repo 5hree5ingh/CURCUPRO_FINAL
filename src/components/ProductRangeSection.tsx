@@ -131,8 +131,9 @@ export default function ProductRangeSection() {
                 {/* Purity number — the hero of the card */}
                 <div className="mb-4">
                   <span
-                    className="font-serif text-[36px] sm:text-[42px] lg:text-[48px] font-medium leading-none tracking-tight"
+                    className="text-[36px] sm:text-[42px] lg:text-[48px] leading-none tracking-tight"
                     style={{
+                      fontFamily: 'var(--font-display)',
                       background: `linear-gradient(135deg, #f4ebd9, ${product.accent})`,
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",

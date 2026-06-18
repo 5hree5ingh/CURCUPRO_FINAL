@@ -124,7 +124,7 @@ export default function WhySyntheticSection() {
                 background: 'linear-gradient(90deg, transparent, rgba(218,175,85,0.7) 30%, rgba(232,196,108,0.85) 50%, rgba(218,175,85,0.7) 70%, transparent)',
               }} />
 
-              <span className="block font-serif text-[28px] sm:text-[36px] md:text-[44px] font-medium leading-tight mb-1">
+              <span className="block text-[28px] sm:text-[36px] md:text-[44px] leading-tight tracking-tight mb-1" style={{ fontFamily: 'var(--font-display)' }}>
                 <ShinyText
                   text={stat.value}
                   speed={2.5}
@@ -136,7 +136,7 @@ export default function WhySyntheticSection() {
                   yoyo={false}
                   pauseOnHover={false}
                   disabled={false}
-                  className="font-serif text-[28px] sm:text-[36px] md:text-[44px] font-medium leading-tight"
+                  className="text-[28px] sm:text-[36px] md:text-[44px] leading-tight tracking-tight"
                 />
               </span>
               <span className="block text-[#1a1105] text-xs sm:text-base font-semibold font-sans tracking-wide mb-0.5 sm:mb-1">

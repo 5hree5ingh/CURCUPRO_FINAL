@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useState, useCallback } from "react";
 import { motion, useInView } from "motion/react";
+import ResourceDownloadDialog from "./ResourceDownloadDialog";
 
 /* ─── Icons ─── */
 
@@ -141,10 +142,10 @@ function DocPreview({ lineCount }: { lineCount: number }) {
 }
 
 /* ─── Featured Document Card — tall, vertical ─── */
-function FeaturedDocCard({ doc, index }: { doc: typeof featuredDocs[0]; index: number }) {
+function FeaturedDocCard({ doc, index, onDownloadClick }: { doc: typeof featuredDocs[0]; index: number; onDownloadClick: () => void }) {
   return (
-    <motion.a
-      href="#"
+    <motion.div
+      onClick={onDownloadClick}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
@@ -204,7 +205,7 @@ function FeaturedDocCard({ doc, index }: { doc: typeof featuredDocs[0]; index: n
       <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
         style={{ boxShadow: '0 12px 32px rgba(176,116,26,0.14), 0 6px 16px rgba(176,116,26,0.08), 0 0 0 1px rgba(218,175,85,0.12)' }}
       />
-    </motion.a>
+    </motion.div>
   );
 }
 
@@ -214,7 +215,16 @@ export default function ResourcesSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-60px" });
 
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedResource, setSelectedResource] = useState("");
+
+  const openDialog = useCallback((resourceName: string) => {
+    setSelectedResource(resourceName);
+    setDialogOpen(true);
+  }, []);
+
   return (
+    <>
     <section
       id="resources"
       ref={sectionRef}
@@ -264,7 +274,7 @@ export default function ResourcesSection() {
 
           {/* Column 1 & 2: Featured document cards with doc preview */}
           {featuredDocs.map((doc, i) => (
-            <FeaturedDocCard key={i} doc={doc} index={i} />
+            <FeaturedDocCard key={i} doc={doc} index={i} onDownloadClick={() => openDialog(doc.title)} />
           ))}
 
           {/* Column 3: Quick downloads — stacked vertically */}
@@ -285,9 +295,9 @@ export default function ResourcesSection() {
 
             {/* 4 stacked items */}
             {quickDownloads.map((item, i) => (
-              <motion.a
+              <motion.div
                 key={i}
-                href="#"
+                onClick={() => openDialog(item.title)}
                 initial={{ opacity: 0, x: 12 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -327,11 +337,19 @@ export default function ResourcesSection() {
                     <path d="M8 3v8M5 8l3 3 3-3" />
                   </svg>
                 </div>
-              </motion.a>
+              </motion.div>
             ))}
           </motion.div>
         </div>
       </div>
     </section>
+
+    {/* Download lead-capture dialog */}
+    <ResourceDownloadDialog
+      isOpen={dialogOpen}
+      onClose={() => setDialogOpen(false)}
+      resourceName={selectedResource}
+    />
+    </>
   );
 }
