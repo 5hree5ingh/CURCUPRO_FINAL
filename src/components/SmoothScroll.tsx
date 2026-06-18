@@ -14,8 +14,14 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       wheelMultiplier: 0.65,
       touchMultiplier: 1.2,
       infinite: false,
-      autoRaf: true, // Lenis manages its own rAF loop and pauses when idle
     });
+
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
 
     // Use event delegation so ALL anchor links (including ones mounted later,
     // like footer links inside ContactSection) get smooth Lenis scrolling.
@@ -34,6 +40,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     return () => {
       document.removeEventListener("click", handleClick);
+      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
   }, []);

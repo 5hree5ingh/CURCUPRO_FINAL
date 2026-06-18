@@ -19,14 +19,70 @@ function SplashCursor({
   RAINBOW_MODE = true,
   COLOR = '#ff0000'
 }) {
-  // Skip entirely on mobile/touch devices
-  const [isMobile, setIsMobile] = useState(false);
+  // Skip entirely on mobile/touch devices AND low-end hardware
+  const [isDisabled, setIsDisabled] = useState(false);
   useEffect(() => {
+    // Check 1: Mobile / touch device
     const mq = window.matchMedia('(max-width: 768px), (pointer: coarse)');
-    setIsMobile(mq.matches);
-    const handler = (e) => setIsMobile(e.matches);
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
+    if (mq.matches) {
+      setIsDisabled(true);
+      const handler = (e) => setIsDisabled(e.matches);
+      mq.addEventListener('change', handler);
+      return () => mq.removeEventListener('change', handler);
+    }
+
+    // Check 2: Low CPU core count (≤4 cores = likely low-end)
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) {
+      setIsDisabled(true);
+      return;
+    }
+
+    // Check 3: Low device memory (≤4 GB)
+    if (navigator.deviceMemory && navigator.deviceMemory <= 4) {
+      setIsDisabled(true);
+      return;
+    }
+
+    // Check 4: Integrated / weak GPU detection via WebGL renderer string
+    try {
+      const testCanvas = document.createElement('canvas');
+      const gl = testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl');
+      if (gl) {
+        const debugExt = gl.getExtension('WEBGL_debug_renderer_info');
+        if (debugExt) {
+          const renderer = gl.getParameter(debugExt.UNMASKED_RENDERER_WEBGL).toLowerCase();
+          const lowEndGPUs = [
+            'intel hd graphics',
+            'intel uhd graphics',
+            'intel(r) hd',
+            'intel(r) uhd',
+            'mesa',
+            'swiftshader',
+            'llvmpipe',
+            'microsoft basic render',
+            'adreno 5',   // Adreno 5xx series (older mobile)
+            'adreno 4',   // Adreno 4xx series
+            'mali-g5',    // Older Mali
+            'mali-t',     // Older Mali
+          ];
+          if (lowEndGPUs.some(gpu => renderer.includes(gpu))) {
+            setIsDisabled(true);
+            return;
+          }
+        }
+      }
+    } catch (e) {
+      // If WebGL detection fails, assume capable
+    }
+
+    // Check 5: Prefer-reduced-motion accessibility setting
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reducedMotion.matches) {
+      setIsDisabled(true);
+      return;
+    }
+
+    setIsDisabled(false);
   }, []);
   const canvasRef = useRef(null);
   const animationFrameId = useRef(null);
@@ -34,7 +90,7 @@ function SplashCursor({
   const isIdleRef = useRef(false);
 
   useEffect(() => {
-    if (isMobile) return; // Don't run WebGL sim on mobile
+    if (isDisabled) return; // Don't run WebGL sim on mobile or low-end devices
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -1091,10 +1147,10 @@ function SplashCursor({
       window.removeEventListener('touchend', handleTouchEnd);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMobile]);
+  }, [isDisabled]);
 
-  // Don't render anything on mobile
-  if (isMobile) return null;
+  // Don't render anything on mobile or low-end devices
+  if (isDisabled) return null;
 
   return (
     <div
