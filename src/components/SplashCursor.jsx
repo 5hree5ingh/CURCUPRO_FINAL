@@ -1,14 +1,14 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function SplashCursor({
-  SIM_RESOLUTION = 128,
-  DYE_RESOLUTION = 1440,
+  SIM_RESOLUTION = 64,
+  DYE_RESOLUTION = 512,
   CAPTURE_RESOLUTION = 512,
   DENSITY_DISSIPATION = 3.5,
   VELOCITY_DISSIPATION = 2,
   PRESSURE = 0.1,
-  PRESSURE_ITERATIONS = 20,
+  PRESSURE_ITERATIONS = 10,
   CURL = 3,
   SPLAT_RADIUS = 0.2,
   SPLAT_FORCE = 6000,
@@ -19,10 +19,22 @@ function SplashCursor({
   RAINBOW_MODE = true,
   COLOR = '#ff0000'
 }) {
+  // Skip entirely on mobile/touch devices
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px), (pointer: coarse)');
+    setIsMobile(mq.matches);
+    const handler = (e) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
   const canvasRef = useRef(null);
   const animationFrameId = useRef(null);
+  const idleTimerRef = useRef(null);
+  const isIdleRef = useRef(false);
 
   useEffect(() => {
+    if (isMobile) return; // Don't run WebGL sim on mobile
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -680,6 +692,11 @@ function SplashCursor({
 
     function updateFrame() {
       if (!isActive) return;
+      // Skip rendering when idle (no mouse movement for 2s)
+      if (isIdleRef.current) {
+        animationFrameId.current = requestAnimationFrame(updateFrame);
+        return;
+      }
       const dt = calcDeltaTime();
       if (resizeCanvas()) initFramebuffers();
       updateColors(dt);
@@ -687,6 +704,15 @@ function SplashCursor({
       step(dt);
       render(null);
       animationFrameId.current = requestAnimationFrame(updateFrame);
+    }
+
+    // Idle detection — stop heavy GPU work when mouse isn't moving
+    function resetIdleTimer() {
+      isIdleRef.current = false;
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+      idleTimerRef.current = setTimeout(() => {
+        isIdleRef.current = true;
+      }, 2000);
     }
 
     function calcDeltaTime() {
@@ -964,7 +990,8 @@ function SplashCursor({
     }
 
     function scaleByPixelRatio(input) {
-      const pixelRatio = window.devicePixelRatio || 1;
+      // Cap pixel ratio to 1 to avoid 4x pixel count on Retina displays
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 1);
       return Math.floor(input * pixelRatio);
     }
 
@@ -989,6 +1016,7 @@ function SplashCursor({
 
     let firstMouseMoveHandled = false;
     function handleMouseMove(e) {
+      resetIdleTimer(); // Wake from idle on mouse move
       let pointer = pointers[0];
       let posX = scaleByPixelRatio(e.clientX);
       let posY = scaleByPixelRatio(e.clientY);
@@ -1048,6 +1076,9 @@ function SplashCursor({
         animationFrameId.current = null;
       }
 
+      // Clear idle timer
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+
       // Remove event listeners
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mousemove', handleMouseMove);
@@ -1056,7 +1087,10 @@ function SplashCursor({
       window.removeEventListener('touchend', handleTouchEnd);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isMobile]);
+
+  // Don't render anything on mobile
+  if (isMobile) return null;
 
   return (
     <div
