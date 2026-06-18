@@ -271,7 +271,7 @@ export default function ContactSection() {
                   <img
                     src="/curcumex_logo.png"
                     alt="Curcumex"
-                    className="h-6 sm:h-7 w-auto brightness-[0.6] opacity-60"
+                    className="h-6 sm:h-7 w-auto brightness-0 invert opacity-45"
                   />
                 </a>
               </div>
@@ -287,7 +287,7 @@ export default function ContactSection() {
                   { label: "Contact", href: "#contact" },
                 ].map((link) => (
                   <a key={link.label} href={link.href}
-                    className="font-sans text-[10px] tracking-[0.16em] uppercase text-[#f4ebd9]/20 hover:text-[#d0a34e] transition-colors duration-300 font-medium whitespace-nowrap"
+                    className="font-sans text-[10px] tracking-[0.16em] uppercase text-[#f4ebd9]/45 hover:text-[#d0a34e] transition-colors duration-300 font-medium whitespace-nowrap"
                   >
                     {link.label}
                   </a>
@@ -296,8 +296,8 @@ export default function ContactSection() {
 
               {/* Address */}
               <div className="md:text-right">
-                <span className="block font-sans text-[9px] tracking-[0.2em] font-semibold uppercase text-[#d0a34e]/35 mb-2">Registered Office</span>
-                <p className="font-sans text-[11px] text-[#f4ebd9]/25 leading-[1.7] tracking-wide">
+                <span className="block font-sans text-[9px] tracking-[0.2em] font-semibold uppercase text-[#f4ebd9]/45 mb-2">Registered Office</span>
+                <p className="font-sans text-[11px] text-[#f4ebd9]/45 leading-[1.7] tracking-wide">
                   Khasra No. 587, Akbarpuruood<br />
                   Behind Shree Cement, Haridwar–Laksar Road<br />
                   Laksar, Haridwar, Uttarakhand 247663
@@ -310,7 +310,7 @@ export default function ContactSection() {
           {/* Bottom bar */}
           <div className="border-t border-[#f4ebd9]/[0.04]">
             <div className="w-full max-w-[1200px] mx-auto px-5 sm:px-8 md:px-16 lg:px-24 py-5 flex items-center justify-center">
-              <span className="font-sans text-[10px] text-[#f4ebd9]/12 tracking-wider">
+              <span className="font-sans text-[10px] text-[#f4ebd9]/45 tracking-wider">
                 © {new Date().getFullYear()} Aurvaay Wellness . All rights reserved.
               </span>
             </div>
