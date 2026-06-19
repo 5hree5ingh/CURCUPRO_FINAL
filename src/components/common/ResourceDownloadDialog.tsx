@@ -3,6 +3,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
+/* ─── Map resource names to their download paths ─── */
+const DOWNLOAD_URLS: Record<string, string> = {
+  "Product brochure": "/documents/product-brochure.pdf",
+  "Technical dossier": "/documents/technical-dossier.pdf",
+  "Sample COA": "/documents/sample-coa.pdf",
+  "MSDS / SDS": "/documents/msds-sds.pdf",
+  "Application guide": "/documents/application-guide.pdf",
+  "Stability data": "/documents/stability-data.pdf",
+};
+
 interface ResourceDownloadDialogProps {
   isOpen: boolean;
   onClose: () => void;
@@ -60,7 +70,6 @@ export default function ResourceDownloadDialog({
       const json = await res.json();
       if (json.success) {
         setSubmitted(true);
-        setTimeout(() => onClose(), 2500);
       } else {
         setError("Something went wrong. Please try again.");
       }
@@ -69,9 +78,20 @@ export default function ResourceDownloadDialog({
     } finally {
       setSubmitting(false);
     }
-  }, [name, email, phone, company, resourceName, onClose]);
+  }, [name, email, phone, company, resourceName]);
 
   const isBrochure = resourceName.toLowerCase().includes("brochure");
+  const downloadUrl = DOWNLOAD_URLS[resourceName] || `/documents/${resourceName.toLowerCase().replace(/\s+/g, "-")}.pdf`;
+
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = "";
+    link.target = "_blank";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <AnimatePresence>
@@ -106,19 +126,7 @@ export default function ResourceDownloadDialog({
                 borderRight: "1px solid rgba(176,116,26,0.12)",
               }}
             >
-              {/* Document type pill */}
               <div>
-                <span
-                  className="inline-block text-[9px] font-bold tracking-[0.22em] uppercase px-2.5 py-1 rounded-sm mb-6"
-                  style={{
-                    background: "rgba(176,116,26,0.15)",
-                    color: "rgba(208,163,78,0.85)",
-                    border: "1px solid rgba(176,116,26,0.2)",
-                  }}
-                >
-                  {isBrochure ? "Product Brochure" : "Technical Dossier"}
-                </span>
-
                 {/* Document icon */}
                 <div className="mb-6">
                   <div
@@ -179,8 +187,8 @@ export default function ResourceDownloadDialog({
                 </div>
                 <div className="w-[1px] h-6" style={{ background: "rgba(176,116,26,0.12)" }} />
                 <div>
-                  <p className="font-sans text-[9px] tracking-[0.18em] uppercase" style={{ color: "rgba(176,116,26,0.55)" }}>Delivery</p>
-                  <p className="font-sans text-[11px] mt-0.5" style={{ color: "rgba(244,235,217,0.5)" }}>Email — Instant</p>
+                  <p className="font-sans text-[9px] tracking-[0.18em] uppercase" style={{ color: "rgba(176,116,26,0.55)" }}>Access</p>
+                  <p className="font-sans text-[11px] mt-0.5" style={{ color: "rgba(244,235,217,0.5)" }}>Instant download</p>
                 </div>
               </div>
             </div>
@@ -207,36 +215,69 @@ export default function ResourceDownloadDialog({
               </button>
 
               {submitted ? (
+                /* ── SUCCESS: Instant download state ── */
                 <motion.div
                   initial={{ opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col justify-center h-full py-10 text-center items-center"
+                  className="flex flex-col justify-center h-full py-8 items-center text-center"
                 >
-                  <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center mb-5"
+                  {/* Animated check circle */}
+                  <motion.div
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
+                    className="w-14 h-14 rounded-full flex items-center justify-center mb-6"
                     style={{
-                      background: "rgba(176,116,26,0.08)",
-                      border: "1.5px solid rgba(176,116,26,0.2)",
+                      background: "linear-gradient(135deg, rgba(176,116,26,0.1) 0%, rgba(208,143,48,0.08) 100%)",
+                      border: "1.5px solid rgba(176,116,26,0.25)",
                     }}
                   >
-                    <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="#b0741a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" stroke="#b0741a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
-                  </div>
-                  <h3 className="font-serif text-[20px] text-[#1a1105] mb-2 tracking-tight">Sent to your inbox</h3>
-                  <p className="font-sans text-[13px] text-[#5c4a32]/55 leading-relaxed max-w-[240px]">
-                    Check your email for the <span className="text-[#b0741a] font-medium">{resourceName}</span>. It should arrive within a minute.
+                  </motion.div>
+
+                  <h3 className="font-serif text-[22px] text-[#1a1105] mb-2 tracking-tight">
+                    Your document is ready
+                  </h3>
+                  <p className="font-sans text-[13px] text-[#5c4a32]/50 leading-relaxed max-w-[260px] mb-8">
+                    Thank you for your interest. Click below to download the{" "}
+                    <span className="text-[#b0741a] font-medium">{resourceName}</span>.
+                  </p>
+
+                  {/* Download button */}
+                  <motion.button
+                    initial={{ y: 8, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.25, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    onClick={handleDownload}
+                    className="group w-full max-w-[280px] py-[14px] font-sans text-[11px] font-bold tracking-[0.16em] uppercase transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center gap-3 rounded-lg"
+                    style={{
+                      background: "linear-gradient(135deg, #b0741a 0%, #8c540c 100%)",
+                      color: "#fff",
+                      boxShadow: "0 4px 20px rgba(176,116,26,0.25), 0 2px 8px rgba(176,116,26,0.15)",
+                    }}
+                  >
+                    <svg viewBox="0 0 16 16" className="w-4 h-4 transform group-hover:translate-y-0.5 transition-transform duration-300" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M8 2v9.5M4 8.5l4 4 4-4M3 14h10" />
+                    </svg>
+                    <span>Download now</span>
+                  </motion.button>
+
+                  <p className="font-sans text-[10px] mt-4" style={{ color: "rgba(92,74,50,0.3)" }}>
+                    PDF document · Opens in new tab
                   </p>
                 </motion.div>
               ) : (
+                /* ── FORM: Lead capture ── */
                 <div className="flex flex-col h-full">
                   {/* Header */}
                   <div className="mb-7">
                     <p className="font-sans text-[10px] tracking-[0.2em] uppercase font-semibold mb-2" style={{ color: "rgba(176,116,26,0.7)" }}>
-                      Access document
+                      Instant access
                     </p>
                     <p className="font-serif text-[20px] text-[#1a1105] leading-snug tracking-tight">
-                      Where should we send it?
+                      Unlock this document
                     </p>
                   </div>
 
@@ -307,20 +348,21 @@ export default function ResourceDownloadDialog({
                               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
                               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                             </svg>
-                            Sending…
+                            Verifying…
                           </>
                         ) : (
                           <>
-                            <span>Send me the document</span>
                             <svg viewBox="0 0 16 16" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M8 2v9.5M4 8.5l4 4 4-4" />
+                              <rect x="3" y="7" width="10" height="7" rx="1.5" />
+                              <path d="M5 7V5a3 3 0 0 1 6 0v2" />
                             </svg>
+                            <span>Unlock & download</span>
                           </>
                         )}
                       </button>
 
                       <p className="text-center font-sans text-[10px] mt-3" style={{ color: "rgba(92,74,50,0.35)" }}>
-                        No spam. Sent once, immediately.
+                        Your info stays private. No spam, ever.
                       </p>
                     </div>
                   </form>
