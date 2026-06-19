@@ -38,7 +38,7 @@ function doPost(e) {
       to:      NOTIFY_EMAIL,
       subject: "New Sample Request — " + (data.name || "Unknown"),
       body: [
-        "A new sample request was submitted on the Curcumin Solutions website.",
+        "A new sample request was submitted on the Curcumin website.",
         "",
         "Name:         " + (data.name    || "—"),
         "Email:        " + (data.email   || "—"),

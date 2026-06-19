@@ -14,7 +14,7 @@ const dmSerif = DM_Serif_Display({ subsets: ['latin'], variable: '--font-display
 const cormorant = Cormorant_Garamond({ subsets: ['latin'], variable: '--font-cormorant', weight: ['400', '500', '600', '700'], style: ['normal', 'italic'] });
 
 export const metadata: Metadata = {
-  title: "Curcumin Solutions — India's First Synthetic Curcumin Manufacturer",
+  title: "Curcumin — Premium Synthetic Curcumin Manufacturer",
   description:
     "99.5%+ purity synthetic curcumin for pharma, nutraceutical, and food industries. ISO-certified, year-round supply, zero batch variation. Request a free sample.",
   keywords: [
@@ -28,17 +28,17 @@ export const metadata: Metadata = {
     "curcuminoids",
   ],
   openGraph: {
-    title: "Curcumin Solutions — India's First Synthetic Curcumin Manufacturer",
+    title: "Curcumin — Premium Synthetic Curcumin Manufacturer",
     description:
       "99.5%+ purity synthetic curcumin for pharma, nutraceutical, and food industries. Request a free sample today.",
     url: "https://www.curcumex.com",
-    siteName: "Curcumin Solutions",
+    siteName: "Curcumin",
     locale: "en_IN",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Curcumin Solutions — Synthetic Curcumin Manufacturer",
+    title: "Curcumin — Premium Synthetic Curcumin Manufacturer",
     description:
       "99.5%+ purity. Zero batch variation. Year-round supply. Request a free sample.",
   },

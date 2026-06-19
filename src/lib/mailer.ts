@@ -31,19 +31,19 @@ export async function sendEmail(
   const transporter = getTransporter();
 
   const notificationMail = transporter.sendMail({
-    from: `"Curcumin Solutions Website" <${process.env.GMAIL_USER}>`,
+    from: `"Curcumin Website" <${process.env.GMAIL_USER}>`,
     to: `info@aurvaay.com, ${process.env.GMAIL_USER}`,
     replyTo: email,
     subject: `New Sample Request — ${name}`,
     headers: {
       'X-Priority': '1',
-      'X-Mailer': 'Curcumin Solutions Website',
+      'X-Mailer': 'Curcumin Website',
     },
     html: `
       <div style="font-family:sans-serif;max-width:520px;margin:0 auto;background:#fff;border-radius:10px;overflow:hidden;border:1px solid #e5dcd0;">
         <div style="background:linear-gradient(135deg,#b0741a,#8c540c);padding:24px 32px;">
           <h2 style="color:#fff;margin:0;font-size:20px;letter-spacing:0.02em;">New Sample Request</h2>
-          <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:12px;">Curcumin Solutions — ${timestamp}</p>
+          <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:12px;">Curcumin — ${timestamp}</p>
         </div>
         <div style="padding:28px 32px;">
           <table style="width:100%;border-collapse:collapse;font-size:14px;">
@@ -67,12 +67,12 @@ export async function sendEmail(
   });
 
   const autoReplyMail = transporter.sendMail({
-    from: `"Curcumin Solutions" <${process.env.GMAIL_USER}>`,
+    from: `"Curcumin" <${process.env.GMAIL_USER}>`,
     to: email,
     replyTo: `info@aurvaay.com`,
-    subject: `Hi ${name}, we received your request - Curcumin Solutions`,
+    subject: `Hi ${name}, we received your request - Curcumin`,
     headers: {
-      'X-Mailer': 'Curcumin Solutions Website',
+      'X-Mailer': 'Curcumin Website',
     },
     // Plain text version — critical to avoid spam filters
     text: `Hi ${name},
@@ -88,14 +88,14 @@ Your Request Summary:
 Meanwhile, feel free to reach us at +91 90451 01186 or reply to this email.
 
 Best regards,
-Curcumin Solutions
+Curcumin
 info@aurvaay.com
 www.curcumex.com`,
     html: `
       <div style="font-family:sans-serif;max-width:520px;margin:0 auto;background:#fff;border-radius:10px;overflow:hidden;border:1px solid #e5dcd0;">
         <div style="background:linear-gradient(135deg,#b0741a,#8c540c);padding:24px 32px;">
           <h2 style="color:#fff;margin:0;font-size:20px;letter-spacing:0.02em;">Sample Request Received</h2>
-          <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:12px;">Curcumin Solutions - ${timestamp}</p>
+          <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:12px;">Curcumin - ${timestamp}</p>
         </div>
         <div style="padding:28px 32px;">
           <p style="color:#1a1105;font-size:15px;line-height:1.7;margin:0 0 16px;">Hi ${name},</p>
