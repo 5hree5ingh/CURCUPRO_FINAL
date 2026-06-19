@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { ChevronRight, Menu, X } from "lucide-react";
 import { motion } from "motion/react";
-import ShinyText from "./ShinyText";
+import ShinyText from "@/components/ui/ShinyText";
 
 interface ShieldIconProps {
   percentage: string;
@@ -91,7 +91,7 @@ export default function HeroSection() {
         {/* Desktop hero image */}
         <div className="hidden md:block relative w-full h-full">
           <Image
-            src="/image.webp"
+            src="/images/hero-bg.webp"
             alt="Curcupure product background"
             fill
             priority
@@ -102,7 +102,7 @@ export default function HeroSection() {
         {/* Mobile hero image */}
         <div className="block md:hidden relative w-full h-full">
           <Image
-            src="/hero-mobile.webp"
+            src="/images/hero-mobile.webp"
             alt="Curcupure product background"
             fill
             priority
@@ -136,7 +136,7 @@ export default function HeroSection() {
         <div id="brand-logo-group" className="flex items-center">
           <a href="#hero-root-container" className="block">
             <Image
-              src="/curcumex_logo.png"
+              src="/images/curcumex_logo.png"
               alt="Curcumex"
               width={160}
               height={40}

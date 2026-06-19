@@ -2,7 +2,7 @@
 
 import React, { useRef, useMemo, useState, useCallback } from "react";
 import { motion, useInView } from "motion/react";
-import ResourceDownloadDialog from "./ResourceDownloadDialog";
+import ResourceDownloadDialog from "@/components/common/ResourceDownloadDialog";
 
 /* ─── Icons ─── */
 

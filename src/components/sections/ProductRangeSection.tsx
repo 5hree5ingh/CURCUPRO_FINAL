@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { ChevronRight } from "lucide-react";
-import StarBorder from "./StarBorder";
+import StarBorder from "@/components/ui/StarBorder";
 
 const products = [
   {

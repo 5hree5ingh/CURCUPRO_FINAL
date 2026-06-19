@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "motion/react";
-import ShinyText from "./ShinyText";
+import ShinyText from "@/components/ui/ShinyText";
 
 // Comparison data
 const comparisonData = [

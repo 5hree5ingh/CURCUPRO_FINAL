@@ -269,7 +269,7 @@ export default function ContactSection() {
               <div className="flex items-center">
                 <a href="#hero-root-container" className="block">
                   <img
-                    src="/curcumex_logo.png"
+                    src="/images/curcumex_logo.png"
                     alt="Curcumex"
                     className="h-6 sm:h-7 w-auto brightness-0 invert opacity-45"
                   />
