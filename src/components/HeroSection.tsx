@@ -141,7 +141,8 @@ export default function HeroSection() {
               width={160}
               height={40}
               priority
-              className="h-8 md:h-10 w-auto"
+              className="w-auto"
+              style={{ height: 'clamp(32px, 2.5vw, 40px)', width: 'auto' }}
             />
           </a>
         </div>
@@ -310,7 +311,7 @@ export default function HeroSection() {
 
           <motion.p
             id="hero-subtitle-caps"
-            initial={{ opacity: 0, y: 0 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-[#b0741a] text-[10px] sm:text-xs md:text-sm font-semibold tracking-widest uppercase mb-3 sm:mb-4 selection:bg-[#b0741a]/30"
@@ -320,7 +321,7 @@ export default function HeroSection() {
 
           <motion.h1
             id="hero-main-title"
-            initial={{ opacity: 0, y: 0 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="font-serif font-medium leading-[1.12] md:leading-[1.08] tracking-tight selection:bg-[#b0741a]/20 text-[#1a1105]"
@@ -337,7 +338,7 @@ export default function HeroSection() {
 
           <motion.p
             id="hero-main-description"
-            initial={{ opacity: 0, y: 0 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="hidden md:block text-[#493c2c]/90 font-sans leading-relaxed mt-2 mb-4 max-w-[560px] selection:bg-[#ebdcb9]"
@@ -373,7 +374,7 @@ export default function HeroSection() {
 
           <motion.div
             id="cta-action-container"
-            initial={{ opacity: 0, y: 0 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="hidden md:flex flex-row items-center gap-6 mt-2"
