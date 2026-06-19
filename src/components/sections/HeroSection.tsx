@@ -58,11 +58,52 @@ const ShieldIcon: React.FC<ShieldIconProps> = ({ percentage }) => {
 export default function HeroSection() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero-root-container");
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // ScrollSpy to track active section
+  useEffect(() => {
+    const sectionIds = [
+      "hero-root-container",
+      "about",
+      "product-range",
+      "applications",
+      "resources",
+      "contact",
+    ];
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "-25% 0px -55% 0px", // triggers when section occupies the sweet spot of the viewport
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    sectionIds.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => {
+      sectionIds.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) observer.unobserve(element);
+      });
+    };
   }, []);
 
   // Lock body scroll when mobile menu is open
@@ -148,30 +189,32 @@ export default function HeroSection() {
         </div>
 
         <nav id="navbar-menu-items" className="hidden md:flex items-center space-x-10 text-[15px] font-medium tracking-wide absolute left-1/2 -translate-x-1/2">
-          <a href="#hero-root-container" className="relative flex flex-col items-center group cursor-pointer py-1">
-            <span className="text-[#b0741a] font-semibold">Home</span>
-            <span className="w-8 h-[2px] bg-[#b0741a] mt-1.5 rounded-full" />
-          </a>
-          <a href="#about" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
-            Why Synthetic
-            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#b0741a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
-          </a>
-          <a href="#product-range" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
-            Products
-            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#b0741a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
-          </a>
-          <a href="#applications" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
-            Applications
-            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#b0741a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
-          </a>
-          <a href="#resources" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
-            Resources
-            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#b0741a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
-          </a>
-          <a href="#contact" className="relative text-[#3d3225] hover:text-[#b0741a] transition duration-300 py-1 group">
-            Contact
-            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#b0741a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
-          </a>
+          {[
+            { id: "hero-root-container", label: "Home", href: "#hero-root-container" },
+            { id: "about", label: "Why Synthetic", href: "#about" },
+            { id: "product-range", label: "Products", href: "#product-range" },
+            { id: "applications", label: "Applications", href: "#applications" },
+            { id: "resources", label: "Resources", href: "#resources" },
+            { id: "contact", label: "Contact", href: "#contact" },
+          ].map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <a
+                key={item.id}
+                href={item.href}
+                className={`relative py-1 group cursor-pointer transition-colors duration-300 ${
+                  isActive ? "text-[#b0741a] font-semibold" : "text-[#3d3225] hover:text-[#b0741a]"
+                }`}
+              >
+                {item.label}
+                <span
+                  className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#b0741a] rounded-full transition-transform duration-300 origin-center ${
+                    isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                  }`}
+                />
+              </a>
+            );
+          })}
         </nav>
 
         <div id="header-actions-mobile" className="flex items-center space-x-3 md:hidden">
@@ -243,12 +286,12 @@ export default function HeroSection() {
         {/* Navigation links */}
         <nav className="relative z-10 flex flex-col items-center justify-center h-full px-8">
           {[
-            { label: "Home", href: "#hero-root-container" },
-            { label: "Why Synthetic", href: "#about" },
-            { label: "Products", href: "#product-range" },
-            { label: "Applications", href: "#applications" },
-            { label: "Resources", href: "#resources" },
-            { label: "Contact", href: "#contact" },
+            { id: "hero-root-container", label: "Home", href: "#hero-root-container" },
+            { id: "about", label: "Why Synthetic", href: "#about" },
+            { id: "product-range", label: "Products", href: "#product-range" },
+            { id: "applications", label: "Applications", href: "#applications" },
+            { id: "resources", label: "Resources", href: "#resources" },
+            { id: "contact", label: "Contact", href: "#contact" },
           ].map((link, i) => (
             <div key={link.href} className="w-full max-w-[280px]">
               <a
@@ -260,7 +303,8 @@ export default function HeroSection() {
                     : "opacity-0 translate-y-4"
                 }`}
                 style={{
-                  color: "#1a1105",
+                  color: activeSection === link.id ? "#b0741a" : "#1a1105",
+                  fontWeight: activeSection === link.id ? "600" : undefined,
                   transitionDelay: mobileMenuOpen ? `${150 + i * 60}ms` : "0ms",
                   transitionDuration: "500ms",
                   transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",

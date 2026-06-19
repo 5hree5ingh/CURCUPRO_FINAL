@@ -3,7 +3,6 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { FaqPro, type FaqProItem } from "@/components/ui/faq-pro";
-import ShinyText from "@/components/ui/ShinyText";
 
 const faqItems: FaqProItem[] = [
   {
