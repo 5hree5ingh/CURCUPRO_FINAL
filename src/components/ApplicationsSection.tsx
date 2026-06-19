@@ -76,19 +76,7 @@ export default function ApplicationsSection() {
 
         {/* MagicBento cards */}
         <div className="w-full">
-          <MagicBento
-            textAutoHide={true}
-            enableStars={false}
-            enableSpotlight={false}
-            enableBorderGlow={false}
-            enableTilt={false}
-            enableMagnetism={false}
-            clickEffect={false}
-            spotlightRadius={0}
-            particleCount={0}
-            glowColor="176, 116, 26"
-            disableAnimations={true}
-          />
+          <MagicBento />
         </div>
 
       </div>

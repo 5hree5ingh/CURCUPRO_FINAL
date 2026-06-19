@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./scrollbar.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import { Geist } from "next/font/google";
-import { Inter, Playfair_Display, DM_Serif_Display } from "next/font/google";
+import { Inter, Playfair_Display, DM_Serif_Display, Cormorant_Garamond } from "next/font/google";
 import { cn } from "@/lib/utils";
-import SplashCursor from "@/components/SplashCursor";
+import SplashCursor from "@/components/SplashCursorLoader";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Script from "next/script";
 
@@ -12,6 +13,7 @@ const geist = Geist({ subsets: ['latin'], variable: '--font-geist' });
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans', weight: ['300', '400', '500', '600', '700'] });
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-serif', weight: ['400', '500', '600', '700'], style: ['normal', 'italic'] });
 const dmSerif = DM_Serif_Display({ subsets: ['latin'], variable: '--font-display', weight: '400' });
+const cormorant = Cormorant_Garamond({ subsets: ['latin'], variable: '--font-cormorant', weight: ['400', '500', '600', '700'], style: ['normal', 'italic'] });
 
 export const metadata: Metadata = {
   title: "Curcumin Solutions — India's First Synthetic Curcumin Manufacturer",
@@ -57,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("h-full w-full overflow-x-hidden", "font-sans", inter.variable, playfair.variable, geist.variable, dmSerif.variable)} suppressHydrationWarning>
+    <html lang="en" className={cn("h-full w-full overflow-x-hidden", "font-sans", inter.variable, playfair.variable, geist.variable, dmSerif.variable, cormorant.variable)} suppressHydrationWarning>
       <body className="h-full w-full overflow-x-hidden">
         <Script
           async

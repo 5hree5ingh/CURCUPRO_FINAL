@@ -1,0 +1,26 @@
+/* ── Custom scrollbar matching site theme ── */
+
+/* Webkit browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 10px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: #f4ebd9 !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #d5a353, #b0741a) !important;
+  border-radius: 5px !important;
+  border: 2px solid #f4ebd9 !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #c2842b, #965e0f) !important;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #b0741a #f4ebd9;
+}

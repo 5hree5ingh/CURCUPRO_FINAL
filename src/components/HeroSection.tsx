@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Menu, X } from "lucide-react";
 import { motion } from "motion/react";
 import ShinyText from "./ShinyText";
 
@@ -57,12 +57,23 @@ const ShieldIcon: React.FC<ShieldIconProps> = ({ percentage }) => {
 
 export default function HeroSection() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileMenuOpen]);
 
   const purityMetrics = [
     { value: "99.5%", label: "Purity (HPLC)" },
@@ -80,22 +91,22 @@ export default function HeroSection() {
         {/* Desktop hero image */}
         <div className="hidden md:block relative w-full h-full">
           <Image
-            src="/image.png"
+            src="/image.webp"
             alt="Curcupure product background"
             fill
             priority
-            sizes="100vw"
+            sizes="(max-width: 768px) 0vw, 100vw"
             className="object-cover object-right"
           />
         </div>
         {/* Mobile hero image */}
         <div className="block md:hidden relative w-full h-full">
           <Image
-            src="/hero-mobile.png"
+            src="/hero-mobile.webp"
             alt="Curcupure product background"
             fill
             priority
-            sizes="100vw"
+            sizes="(max-width: 768px) 100vw, 0vw"
             className="object-cover object-center"
           />
         </div>
@@ -111,7 +122,7 @@ export default function HeroSection() {
       {/* Header / Navigation bar — STICKY */}
       <header
         id="main-navigation-header"
-        className={`fixed top-0 left-0 right-0 z-50 px-5 py-3 md:px-16 lg:px-24 md:py-5 flex items-center justify-between transition-all duration-700 ${
+        className={`fixed top-0 left-0 right-0 z-[60] px-5 py-3 md:px-16 lg:px-24 md:py-5 flex items-center justify-between transition-all duration-700 ${
           scrolled
             ? "py-2.5 md:py-3.5 backdrop-blur-2xl"
             : ""
@@ -172,13 +183,126 @@ export default function HeroSection() {
             BULK QUOTE
           </a>
 
-          <button className="flex flex-col items-center justify-center w-8 h-8 gap-[4px] cursor-pointer" aria-label="Open menu">
-            <span className="w-5 h-[2px] bg-[#1a1105] rounded-full" />
-            <span className="w-5 h-[2px] bg-[#1a1105] rounded-full" />
-            <span className="w-5 h-[2px] bg-[#1a1105] rounded-full" />
+          {/* Menu / Close toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="relative flex items-center justify-center w-9 h-9 cursor-pointer"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
+          >
+            <Menu
+              size={22}
+              strokeWidth={2}
+              className={`absolute text-[#1a1105] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                mobileMenuOpen ? "opacity-0 rotate-90 scale-75" : "opacity-100 rotate-0 scale-100"
+              }`}
+            />
+            <X
+              size={22}
+              strokeWidth={2}
+              className={`absolute text-[#b0741a] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                mobileMenuOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-75"
+              }`}
+            />
           </button>
         </div>
       </header>
+
+      {/* ── Premium Mobile Navigation Drawer ── */}
+      <div
+        id="mobile-nav-overlay"
+        className={`fixed inset-0 z-[55] md:hidden transition-all duration-500 ${
+          mobileMenuOpen ? "visible" : "invisible"
+        }`}
+      >
+        {/* Backdrop blur overlay */}
+        <div
+          className={`absolute inset-0 transition-all duration-500 ${
+            mobileMenuOpen ? "opacity-100" : "opacity-0"
+          }`}
+          style={{
+            background: "linear-gradient(180deg, rgba(244,235,217,0.92) 0%, rgba(237,228,207,0.96) 40%, rgba(230,218,192,0.98) 100%)",
+            backdropFilter: "blur(24px) saturate(1.4)",
+            WebkitBackdropFilter: "blur(24px) saturate(1.4)",
+          }}
+          onClick={() => setMobileMenuOpen(false)}
+        />
+
+        {/* Ambient golden glow */}
+        <div
+          className={`absolute top-[15%] right-[-10%] w-[300px] h-[300px] rounded-full pointer-events-none transition-opacity duration-700 ${
+            mobileMenuOpen ? "opacity-100" : "opacity-0"
+          }`}
+          style={{
+            background: "radial-gradient(circle, rgba(176,116,26,0.12) 0%, transparent 70%)",
+            filter: "blur(60px)",
+          }}
+        />
+
+        {/* Navigation links */}
+        <nav className="relative z-10 flex flex-col items-center justify-center h-full px-8">
+          {[
+            { label: "Home", href: "#hero-root-container" },
+            { label: "Why Synthetic", href: "#about" },
+            { label: "Products", href: "#product-range" },
+            { label: "Applications", href: "#applications" },
+            { label: "Resources", href: "#resources" },
+            { label: "Contact", href: "#contact" },
+          ].map((link, i) => (
+            <div key={link.href} className="w-full max-w-[280px]">
+              <a
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block py-4 text-center font-serif text-[22px] font-medium tracking-wide transition-all ${
+                  mobileMenuOpen
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-4"
+                }`}
+                style={{
+                  color: "#1a1105",
+                  transitionDelay: mobileMenuOpen ? `${150 + i * 60}ms` : "0ms",
+                  transitionDuration: "500ms",
+                  transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
+                <span className="hover:text-[#b0741a] transition-colors duration-300">
+                  {link.label}
+                </span>
+              </a>
+              {i < 5 && (
+                <div
+                  className={`mx-auto h-[1px] transition-all ${
+                    mobileMenuOpen ? "opacity-100 w-full" : "opacity-0 w-0"
+                  }`}
+                  style={{
+                    background: "linear-gradient(90deg, transparent, rgba(208,163,78,0.35), transparent)",
+                    transitionDelay: mobileMenuOpen ? `${200 + i * 60}ms` : "0ms",
+                    transitionDuration: "600ms",
+                  }}
+                />
+              )}
+            </div>
+          ))}
+
+          {/* Mobile CTA in drawer */}
+          <a
+            href="#contact"
+            onClick={() => setMobileMenuOpen(false)}
+            className={`mt-8 px-8 py-3 bg-gradient-to-r from-[#b0741a] to-[#965e0f] text-white rounded-lg font-sans font-semibold text-xs tracking-widest uppercase transition-all shadow-[0_4px_20px_rgba(176,116,26,0.18)] active:scale-95 ${
+              mobileMenuOpen
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-4"
+            }`}
+            style={{
+              transitionDelay: mobileMenuOpen ? "550ms" : "0ms",
+              transitionDuration: "500ms",
+              transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+            }}
+          >
+            REQUEST BULK QUOTE
+          </a>
+        </nav>
+      </div>
 
       {/* Main Hero Body */}
       <main id="hero-main-layout" className="flex-1 w-full px-5 sm:px-10 md:px-18 lg:px-26 py-4 md:py-6 flex flex-col justify-between md:justify-center z-10 relative">
