@@ -4,7 +4,6 @@ import "./scrollbar.css";
 import SmoothScroll from "@/components/common/SmoothScroll";
 import { Inter, Playfair_Display, DM_Serif_Display, Cormorant_Garamond } from "next/font/google";
 import { cn } from "@/lib/utils";
-import SplashCursor from "@/components/common/SplashCursorLoader";
 import WhatsAppButton from "@/components/common/WhatsAppButton";
 import Script from "next/script";
 
@@ -73,18 +72,7 @@ export default function RootLayout({
             gtag('config', 'G-LTT1KWBMMX');
           `}
         </Script>
-        <SplashCursor
-          DENSITY_DISSIPATION={3.5}
-          VELOCITY_DISSIPATION={2}
-          PRESSURE={0.1}
-          CURL={3}
-          SPLAT_RADIUS={0.2}
-          SPLAT_FORCE={6000}
-          COLOR_UPDATE_SPEED={10}
-          SHADING
-          RAINBOW_MODE={false}
-          COLOR="#b0741a"
-        />
+
         <SmoothScroll>
           {children}
         </SmoothScroll>
