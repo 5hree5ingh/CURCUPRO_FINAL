@@ -2,16 +2,28 @@ import { google } from "googleapis";
 import path from "path";
 
 const SPREADSHEET_ID = "1v-bJEaX57keHkvxz8u4Leu-eHKEpyqoiOkTa8oAA8rQ";
-const SERVICE_ACCOUNT_FILE = path.join(process.cwd(), "service-account.json");
 
-// Cache auth so we don't re-read the JSON file on every request
+// Cache auth so we don't re-initialise on every request
 let cachedAuth: InstanceType<typeof google.auth.GoogleAuth> | null = null;
 function getAuth() {
   if (!cachedAuth) {
-    cachedAuth = new google.auth.GoogleAuth({
-      keyFile: SERVICE_ACCOUNT_FILE,
-      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-    });
+    // On Vercel (and any hosted env) the service-account.json file is not
+    // available on disk, so we read credentials from an env variable instead.
+    // Locally the env var falls back to the file on disk.
+    if (process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
+      const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+      cachedAuth = new google.auth.GoogleAuth({
+        credentials,
+        scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+      });
+    } else {
+      // Fallback for local development — reads service-account.json from disk
+      const SERVICE_ACCOUNT_FILE = path.join(process.cwd(), "service-account.json");
+      cachedAuth = new google.auth.GoogleAuth({
+        keyFile: SERVICE_ACCOUNT_FILE,
+        scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+      });
+    }
   }
   return cachedAuth;
 }
